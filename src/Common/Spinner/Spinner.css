@@ -1,0 +1,28 @@
+.spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+}
+
+.spinner__spinner {
+    background: #FFA404;
+    border-radius: 50%;
+    display: inline-block;
+    width: 3em;
+    height: 3em;
+    animation-name: spinner-bounce;
+    animation-direction: alternate-reverse;
+    animation-iteration-count: infinite;
+    animation-duration: 1s;
+}
+
+@keyframes spinner-bounce {
+    0% {
+        transform: scale(1,1);
+    }
+    100% {
+        transform: scale(0.6,0.6);        
+    }
+}

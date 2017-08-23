@@ -1,0 +1,21 @@
+.app {
+    min-height: 100vh;
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+    z-index: 1;
+}
+
+.app__content {
+    flex: 1;
+    display: flex;
+    align-items: stretch;
+}
+
+.app__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em;
+}
