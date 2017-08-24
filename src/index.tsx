@@ -1,3 +1,4 @@
+import './index.css';
 import { RandomPage } from './Random/RandomPage';
 // import { defaultConnection } from './Api/TMDB/TMDBConnection';
 import { WatchlistPage } from './Watchlist/WatchlistPage';
@@ -9,7 +10,6 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App/App';
 import registerServiceWorker from './registerServiceWorker';
 import { Route /* , Redirect */ } from 'react-router';
-import './index.css';
 
 /*
 const PrivateRoute = ({ component: JSX, ...rest }) => (

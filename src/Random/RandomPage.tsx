@@ -34,7 +34,7 @@ export class RandomPage extends React.Component<{}, RandomPageState> {
         }
         
         const account = await TMDBAccount.getAccount(defaultConnection);
-        
+                
         if (!account) {
             return;
         }
