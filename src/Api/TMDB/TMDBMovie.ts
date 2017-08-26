@@ -16,7 +16,7 @@ export class TMDBMovie {
         movie.posterPath = data.poster_path;
         movie.backdropPath = data.backdrop_path;
         movie.releaseDate = new Date(data.release_date);
-        movie.genreIds = data.genreIds;
+        movie.genreIds = data.genre_ids;
         movie.voteAverage = data.vote_average;
         movie.overview = data.overview;
         return movie;

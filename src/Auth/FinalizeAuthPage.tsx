@@ -1,4 +1,4 @@
-import { authStore } from '../stores/authStore';
+import { authStore } from '../stores/AuthStore';
 import { Spinner } from '../Common/Spinner/Spinner';
 import { defaultConnection } from '../Api/TMDB/TMDBConnection';
 import { TMDBAuthentication } from '../Api/TMDB/TMDBAuthentication';
@@ -28,7 +28,7 @@ export class FinalizeAuthPage extends React.Component<FinalizeAuthPageProps, Fin
                 const session = await TMDBAuthentication.getSessionId(defaultConnection, token);
                 authStore.session = session;
                 window.localStorage.setItem('ssid', session.sessionId);
-                this.props.history.replace('/random');
+                this.props.history.replace('/');
                 return;
             }
         }

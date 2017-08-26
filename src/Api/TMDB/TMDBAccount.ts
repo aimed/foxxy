@@ -23,7 +23,11 @@ export class TMDBAccount {
     }
 
     public static getWatchlist(con: TMDBConnection, id: number, page: number = 1): Promise<TMDBPage<TMDBMovie>> {
-        return con.getRequest(TMDBPage.fromJSON(TMDBMovie.fromJSON), `/account/${id}/watchlist/movies`, { page });
+        return con.getRequest(
+            TMDBPage.fromJSON(TMDBMovie.fromJSON), 
+            `/account/${id}/watchlist/movies`, 
+            { page }
+        );
     }
 
     public static fromJSON(data: any): TMDBAccount {

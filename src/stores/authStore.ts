@@ -2,7 +2,7 @@ import { defaultConnection } from '../Api/TMDB/TMDBConnection';
 import { observable } from 'mobx';
 import { TMDBSession } from '../Api/TMDB/TMDBSession';
 
-class AuthStore {
+export class AuthStore {
     @observable 
     public session: TMDBSession | null =  AuthStore.sessionFromLocalStorage();
 

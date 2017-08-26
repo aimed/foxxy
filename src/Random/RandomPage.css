@@ -44,5 +44,5 @@
 }
 
 .random__reroll {
-    align-self: baseline;
+    align-self: flex-end;
 }

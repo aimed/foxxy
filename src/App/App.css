@@ -12,10 +12,46 @@
     align-items: stretch;
 }
 
+.app__header,
+.app__footer {
+    background-color: #ffffff;
+    color: #1A1F30;
+}
+
 .app__header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     padding: 1em;
+}
+
+.app__header__logo-menu {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+}
+
+.app__header__logo {
+    font-weight: bold;
+    font-size: 1.4em;
+    margin-right: 1em;
+    color: #FFA404;
+}
+
+.app__header__menu {
+    display: flex;
+    flex-direction: row;
+}
+
+.app__header a {
+    color: inherit;
+    text-decoration: inherit;
+    margin: 0 0.5em;
+}
+
+.app__footer {
+    padding: 0.5em 1em;
+    text-align: right;
 }

@@ -4,6 +4,8 @@ import * as React from 'react';
 import { TMDBAuthentication } from '../Api/TMDB/TMDBAuthentication';
 import { defaultConnection } from '../Api/TMDB/TMDBConnection';
 
+const logo = require('../Common/TMDBIcon/tmdb-primary-green.svg');
+
 type LoginPageState = {
     requestingRequestToken: boolean;
 };
@@ -16,8 +18,10 @@ export class LoginPage extends React.Component<{}, LoginPageState> {
     public render() {
         return (
             <div className="login-page">
+                
                 <Button disabled={this.state.requestingRequestToken} onClick={this.handleLogin}>
-                    Connect to TMDB
+                    <div><img src={logo} width="100px" /></div>
+                    <div>Connect</div>
                 </Button>
             </div>
         );
