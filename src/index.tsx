@@ -1,3 +1,4 @@
+import { AccountProvider } from './Auth/AccountProvider';
 import { WatchlistPage } from './Watchlist/WatchlistPage';
 import './index.css';
 import { RandomPage } from './Random/RandomPage';
@@ -14,9 +15,9 @@ import { Route } from 'react-router';
 ReactDOM.render(
   <BrowserRouter>
     <App>
-      <Route exact path="/" component={RandomPage} />
+      <Route exact path="/" component={AccountProvider(RandomPage)} />
       <Route path="/tmdb-finalize-auth" component={FinalizeAuthPage} />
-      <Route path="/watchlist" component={WatchlistPage} />
+      <Route path="/watchlist" component={AccountProvider(WatchlistPage)} />
       <Route path="/login" component={LoginPage} />
     </App>
   </BrowserRouter>,

@@ -1,10 +1,14 @@
+import { TMDBAccount } from '../Api/TMDB/TMDBAccount';
 import { defaultConnection } from '../Api/TMDB/TMDBConnection';
 import { observable } from 'mobx';
 import { TMDBSession } from '../Api/TMDB/TMDBSession';
 
-export class AuthStore {
+export class AccountStore {
     @observable 
-    public session: TMDBSession | null =  AuthStore.sessionFromLocalStorage();
+    public session: TMDBSession | null =  AccountStore.sessionFromLocalStorage();
+
+    @observable
+    public account: TMDBAccount | null = null;
 
     static sessionFromLocalStorage(): TMDBSession | null {
         const ssid = window.localStorage.getItem('ssid');
@@ -16,10 +20,11 @@ export class AuthStore {
         if (session) {
             defaultConnection.setSession(session);
         } else {
+            this.account = null;
             defaultConnection.destroySession();
         }
     }
 
 }
 
-export const authStore = new AuthStore();
+export const accountStore = new AccountStore();

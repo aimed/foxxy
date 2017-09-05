@@ -1,19 +1,18 @@
+import { MoviePoster } from '../Movie/MoviePoster';
 import { TMDBGenre } from '../Api/TMDB/TMDBGenre';
 import * as React from 'react';
 import './RandomPage.css';
 import { randomStore } from '../stores/RandomStore';
 import { Button } from '../Common/Button/Button';
-import { authStore } from '../stores/AuthStore';
+import { accountStore } from '../stores/AuthStore';
 import { Spinner } from '../Common/Spinner/Spinner';
 import { defaultConnection } from '../Api/TMDB/TMDBConnection';
 import { TMDBAccount } from '../Api/TMDB/TMDBAccount';
 import { TMDBMovie } from '../Api/TMDB/TMDBMovie';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
-import { Redirect } from 'react-router';
 
 interface RandomPageState {
-    account?: TMDBAccount;
     watchlist: TMDBMovie[];
     randomMovie?: TMDBMovie | null;
 }
@@ -43,24 +42,12 @@ export class RandomPage extends React.Component<{}, RandomPageState> {
     };
 
     public async componentDidMount() {
-        const session = authStore.session;
-        
-        if (!session) {
-            return;
+        if (!accountStore.account) {
+            throw new Error('Account needed');
         }
-        
-        const account = await TMDBAccount.getAccount(defaultConnection);
-                
-        if (!account) {
-            return;
-        }
-        this.setState({ account });
-        
-        const watchlist = await TMDBAccount.getWatchlist(defaultConnection, account.id);
+
+        const watchlist = await TMDBAccount.getWatchlist(defaultConnection, accountStore.account);
         this.watchlistLoaded = true;
-        if (!watchlist) {
-            return;
-        }
 
         const movies = [...this.state.watchlist, ...watchlist.entries];
         this.setState({ watchlist: movies });
@@ -73,23 +60,31 @@ export class RandomPage extends React.Component<{}, RandomPageState> {
         const selected = didSelect 
         ? this.state.watchlist.filter(m => m.genreIds.find(g => !!this.selectedGenre && g === this.selectedGenre.id)) 
         : this.state.watchlist;
+
+        if (selected.length === 0) {
+            this.selectedGenre = undefined;
+            return;
+        }
         
         const randomMovie = randomInArray(selected);
         this.setState({ randomMovie });
         randomStore.setRerollCount(randomStore.rerollCount + 1);
     }
 
-    public render() {
-        const session = authStore.session;
-
-        if (!session) {
-            return <Redirect to="/login" />;
+    public markCurrentMovieAsWatched = async () => {
+        const account = accountStore.account;
+        const { randomMovie } = this.state;
+        if (!account || !randomMovie) {
+            return;
         }
-
-        if (!this.state.account) {  
-            return <Spinner text="Getting account info" />;
-        }
+        await TMDBAccount.addToWatchlist(defaultConnection, account, randomMovie, false);
         
+        const watchlist = this.state.watchlist.filter(m => m.id !== randomMovie.id);
+        this.setState({ watchlist });
+        this.reselectMovie();
+    }
+
+    public render() {
         if (this.selectedGenre === undefined) {
             return this.renderGenrePicker();
         }
@@ -107,22 +102,20 @@ export class RandomPage extends React.Component<{}, RandomPageState> {
                 <div className="random__movie">
                     <div className="random__movie__poster-container">
                         <div>
-                            {movie.posterPath && 
-                                <img 
-                                    src={`https://image.tmdb.org/t/p/w500/${movie.posterPath}`} 
-                                    className="random__movie__poster" 
-                                />
-                            }
+                            <MoviePoster movie={movie} />
                         </div>
                     </div>
                     <div className="random__movie__info">
                         <h1 className="random__title">{movie.title}</h1>
                         <div className="random__summary">{movie.overview}</div>
-                        {canReroll || true && 
+                        {canReroll && 
                             <div className="random__reroll">
                                 <Button onClick={this.reselectMovie}>Reroll ({rerollsLeft})</Button>
                             </div>
                         }
+                        <div className="random__rate">
+                                <Button onClick={this.markCurrentMovieAsWatched}>Remove from Watchlist</Button>
+                        </div>
                     </div>
 
                     {movie.backdropPath &&
@@ -144,7 +137,7 @@ export class RandomPage extends React.Component<{}, RandomPageState> {
     }
 
     private renderGenrePicker() {
-        if (!this.genres) {
+        if (this.genres === null) {
             return <Spinner text="Getting genres" />;
         }
 

@@ -21,7 +21,7 @@
     text-shadow: 1px 1px 1px rgba(0,0,0,0.6);
 }
 
-.random__movie__poster {
+.random img {
     max-width: 25vw;
     max-height: 70vh;
     box-shadow: 0px 1px 3px #000000;

@@ -1,4 +1,4 @@
-import { authStore } from '../stores/AuthStore';
+import { accountStore } from '../stores/AuthStore';
 import { Button } from '../Common/Button/Button';
 import { defaultConnection } from '../Api/TMDB/TMDBConnection';
 import * as React from 'react';
@@ -16,15 +16,17 @@ export class AppHeader extends React.Component<AppHeaderProps, {}> {
         const props = this.props as RouteComponentProps<{}>;
         defaultConnection.destroySession();
         props.history.push('/');
-        authStore.session = null;
+        accountStore.session = null;
     }
 
     public render() {
-        const session = authStore.session;
+        const session = accountStore.session;
         return (
             <div className="app__header">
                 <div className="app__header__logo-menu">
-                    <div className="app__header__logo"><Link to="/">Foxxy</Link></div>
+                    <div className="app__header__logo">
+                        <Link to="/">Foxxy</Link>
+                    </div>
                     {session && 
                         <div className="app__header__menu">
                             <Link to="/">Random Movie</Link>

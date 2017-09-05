@@ -7,6 +7,10 @@ export class TMDBConnection {
 
     private session: TMDBSession | null = null;
 
+    public static SuccessResponseParser(data: any): boolean {
+        return data.status_code === 1;
+    }
+
     constructor(apiKey: string) {
         this._apiKey = apiKey;
     }
@@ -27,7 +31,8 @@ export class TMDBConnection {
         window.localStorage.removeItem('ssid');
     }
 
-    public async getRequest<T>(responseParser: (response: any) => T, endpoint: string, query: Object = {}): Promise<T> {
+    public async getRequest<T>(
+        responseParser: (response: any) => T, endpoint: string, query: Object = {}): Promise<T> {
         const queryData = { 
             ...query, 
             api_key: this._apiKey, 
@@ -36,6 +41,27 @@ export class TMDBConnection {
         const queryString = querystring.stringify(queryData);
         const url = `${this._baseUrl}${endpoint}?${queryString}`;
         const response = await window.fetch(url);
+        const json = await response.json();
+        return responseParser(json);
+    }
+
+    public async postRequest<T>(
+        responseParser: (response: any) => T, 
+        endpoint: string,
+        data: Object = {},
+        query: Object = {}): Promise<T> {
+        const queryData = { 
+            ...query, 
+            api_key: this._apiKey, 
+            session_id: this.session ? this.session.sessionId : undefined 
+        };
+        const queryString = querystring.stringify(queryData);
+        const url = `${this._baseUrl}${endpoint}?${queryString}`;
+        const response = await window.fetch(url, { 
+            method: 'POST', 
+            body: JSON.stringify(data),
+            headers: { 'Content-Type': 'application/json' }
+        });
         const json = await response.json();
         return responseParser(json);
     }

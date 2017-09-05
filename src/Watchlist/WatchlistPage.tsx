@@ -3,12 +3,10 @@ import { TMDBMovie } from '../Api/TMDB/TMDBMovie';
 import { TMDBAccount } from '../Api/TMDB/TMDBAccount';
 import { defaultConnection } from '../Api/TMDB/TMDBConnection';
 import * as React from 'react';
-import { authStore } from '../stores/AuthStore';
-import { Redirect } from 'react-router';
+import { accountStore } from '../stores/AuthStore';
 import { Spinner } from '../Common/Spinner/Spinner';
 
 interface WatchlistPageState {
-    account?: TMDBAccount;
     watchlist: TMDBMovie[];
     loadedWatchlist: boolean;
 }
@@ -20,18 +18,12 @@ export class WatchlistPage extends React.Component<{}, WatchlistPageState> {
     };
 
     public async componentDidMount() {
-        const session = authStore.session;
-        if (!session) {
-            return;
-        }
-
-        const account = await TMDBAccount.getAccount(defaultConnection);
+        const account = accountStore.account;
         if (!account) {
-            return;
+            throw new Error('Account needed');
         }
-        this.setState({ account });
 
-        const watchlist = await TMDBAccount.getWatchlist(defaultConnection, account.id);
+        const watchlist = await TMDBAccount.getWatchlist(defaultConnection, account);
         if (!watchlist) {
             return;
         }
@@ -41,16 +33,6 @@ export class WatchlistPage extends React.Component<{}, WatchlistPageState> {
     }
 
     public render() {
-        const session = authStore.session;
-
-        if (!session) {
-            return <Redirect to="/login" />;
-        }
-
-        if (!this.state.account) {
-            return <Spinner text="Getting account info" />;
-        }
-
         if (!this.state.loadedWatchlist) {
             return <Spinner text="Loading Watchlist" />;
         }

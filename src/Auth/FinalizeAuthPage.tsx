@@ -1,4 +1,4 @@
-import { authStore } from '../stores/AuthStore';
+import { accountStore } from '../stores/AuthStore';
 import { Spinner } from '../Common/Spinner/Spinner';
 import { defaultConnection } from '../Api/TMDB/TMDBConnection';
 import { TMDBAuthentication } from '../Api/TMDB/TMDBAuthentication';
@@ -26,7 +26,7 @@ export class FinalizeAuthPage extends React.Component<FinalizeAuthPageProps, Fin
             if (requestToken) {
                 const token = TMDBRequestToken.fromTokenString(requestToken);
                 const session = await TMDBAuthentication.getSessionId(defaultConnection, token);
-                authStore.session = session;
+                accountStore.session = session;
                 window.localStorage.setItem('ssid', session.sessionId);
                 this.props.history.replace('/');
                 return;
