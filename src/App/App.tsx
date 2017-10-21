@@ -1,13 +1,15 @@
-import { AppHeader } from './AppHeader';
-import * as React from 'react';
 import './App.css';
+
+import * as React from 'react';
+
+import { AppHeader } from './AppHeader';
 
 const logo = require('../Common/TMDBIcon/tmdb-powered-by-rectangle-blue.svg');
 
 type AppProps = {
 };
 
-class App extends React.Component<AppProps, {}> {
+export class App extends React.Component<AppProps, {}> {
   render() {
     return (
       <div className="app">
@@ -19,4 +21,3 @@ class App extends React.Component<AppProps, {}> {
   }
 }
 
-export default App;
