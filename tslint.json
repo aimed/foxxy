@@ -67,7 +67,7 @@
         "radix": true,
         "semicolon": [true, "always"],
         "switch-default": true,
-
+        "no-default-export": true,
         "trailing-comma": false,
 
         "triple-equals": [ true, "allow-null-check" ],
