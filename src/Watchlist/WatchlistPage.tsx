@@ -1,10 +1,12 @@
 import './WatchlistPage.css';
-import { TMDBMovie } from '../Api/TMDB/TMDBMovie';
-import { TMDBAccount } from '../Api/TMDB/TMDBAccount';
-import { defaultConnection } from '../Api/TMDB/TMDBConnection';
+
 import * as React from 'react';
-import { accountStore } from '../stores/AuthStore';
+
 import { Spinner } from '../Common/Spinner/Spinner';
+import { TMDBAccount } from '../Api/TMDB/TMDBAccount';
+import { TMDBMovie } from '../Api/TMDB/TMDBMovie';
+import { accountStore } from '../stores/AccountStore';
+import { defaultConnection } from '../Api/TMDB/TMDBConnection';
 
 interface WatchlistPageState {
     watchlist: TMDBMovie[];

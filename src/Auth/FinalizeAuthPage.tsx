@@ -1,11 +1,13 @@
-import { accountStore } from '../stores/AuthStore';
+import * as React from 'react';
+import * as querystring from 'querystring';
+
+import { RouteComponentProps, withRouter } from 'react-router';
+
 import { Spinner } from '../Common/Spinner/Spinner';
-import { defaultConnection } from '../Api/TMDB/TMDBConnection';
 import { TMDBAuthentication } from '../Api/TMDB/TMDBAuthentication';
 import { TMDBRequestToken } from '../Api/TMDB/TMDBRequestToken';
-import * as querystring from 'querystring';
-import * as React from 'react';
-import { RouteComponentProps, withRouter } from 'react-router';
+import { accountStore } from '../stores/AccountStore';
+import { defaultConnection } from '../Api/TMDB/TMDBConnection';
 
 export interface FinalizeAuthPageProps extends RouteComponentProps<{}> {
 }

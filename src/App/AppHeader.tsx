@@ -1,10 +1,12 @@
-import { accountStore } from '../stores/AuthStore';
-import { Button } from '../Common/Button/Button';
-import { defaultConnection } from '../Api/TMDB/TMDBConnection';
 import * as React from 'react';
-import { withRouter, RouteComponentProps } from 'react-router';
-import { observer } from 'mobx-react';
+
+import { RouteComponentProps, withRouter } from 'react-router';
+
+import { Button } from '../Common/Button/Button';
 import { Link } from 'react-router-dom';
+import { accountStore } from '../stores/AccountStore';
+import { defaultConnection } from '../Api/TMDB/TMDBConnection';
+import { observer } from 'mobx-react';
 
 interface AppHeaderProps {
 }

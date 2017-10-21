@@ -1,10 +1,11 @@
-import { defaultConnection } from '../Api/TMDB/TMDBConnection';
-import { TMDBAccount } from '../Api/TMDB/TMDBAccount';
-import { Spinner } from '../Common/Spinner/Spinner';
-import { accountStore } from '../stores/AuthStore';
 import * as React from 'react';
-import { observer } from 'mobx-react';
+
 import { Redirect } from 'react-router';
+import { Spinner } from '../Common/Spinner/Spinner';
+import { TMDBAccount } from '../Api/TMDB/TMDBAccount';
+import { accountStore } from '../stores/AccountStore';
+import { defaultConnection } from '../Api/TMDB/TMDBConnection';
+import { observer } from 'mobx-react';
 
 export const AccountProvider = (component: React.ComponentClass<{}>) => {
     const Component = component;
