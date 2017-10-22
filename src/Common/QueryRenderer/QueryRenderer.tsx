@@ -34,8 +34,9 @@ export interface QueryRendererState<T> {
  */
 export interface QueryRendererProps<T> {
     query: () => Promise<T>;
-    component: React.ComponentClass<QueryRendererComponentProps<T>>;
-    loading?: () => JSX.Element;
+    // tslint:disable-next-line:max-line-length
+    component: React.ComponentClass<QueryRendererComponentProps<T>> | React.StatelessComponent<QueryRendererComponentProps<T>>;
+    loading?: () => JSX.Element | null;
 }
 
 /**
