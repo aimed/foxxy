@@ -21,8 +21,8 @@ export class RandomPageHeader extends React.Component<RandomPageHeaderProps, Ran
                 right={
                     <Menu direction="horizontal">
                         <Button plain onClick={onReroll}>Reroll</Button>
-                        {(false) && account && <PopoverMenu label={account.username}>Sign out</PopoverMenu>}
-                        {!account && <Button plain>Sign in</Button>}
+                        {account && <PopoverMenu label={account.username}>Sign out</PopoverMenu>}
+                        {/* {!account && <Button plain>Sign in</Button>} */}
                     </Menu>
                 }
             />
