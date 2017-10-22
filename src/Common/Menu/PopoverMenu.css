@@ -1,0 +1,18 @@
+.popovermenu {
+    position: relative;
+}
+
+.popovermenu > .popovermenu__inner {
+    position: absolute;
+}
+
+.popovermenu.-bottom-left > .popovermenu__inner {
+    top: 100%;
+    right: 100%;
+}
+
+.popovermenu.-bottom-right > .popovermenu__inner {
+    top: 100%;
+    right: 0%;
+}
+

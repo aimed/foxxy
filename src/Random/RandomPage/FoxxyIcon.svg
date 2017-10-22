@@ -1,0 +1,38 @@
+<svg width="52" height="40" viewBox="0 0 52 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>FoxxyIcon</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(-2334 -1852)">
+<g id="FoxxyIcon">
+<g id="Vector">
+<use xlink:href="#path0_fill" transform="matrix(-4.37114e-08 1 -1 -4.37114e-08 2348.25 1852.16)" fill="#C4C4C4"/>
+</g>
+<g id="Vector 2">
+<use xlink:href="#path1_fill" transform="matrix(-4.37114e-08 1 -1 -4.37114e-08 2362.73 1860.22)" fill="#F2C94C"/>
+</g>
+<g id="Vector 3">
+<use xlink:href="#path2_fill" transform="matrix(-4.37114e-08 1 -1 -4.37114e-08 2367.4 1852.16)" fill="#EB5757"/>
+</g>
+<g id="Vector 4">
+<use xlink:href="#path3_fill" transform="matrix(-4.37114e-08 1 -1 -4.37114e-08 2386 1852)" fill="#F2994A"/>
+</g>
+<g id="Vector 5">
+<use xlink:href="#path4_fill" transform="matrix(-4.37114e-08 1 -1 -4.37114e-08 2381.65 1852.16)" fill="#F2994A"/>
+</g>
+<g id="Vector 6">
+<use xlink:href="#path5_fill" transform="matrix(-4.37114e-08 1 -1 -4.37114e-08 2381.57 1860.14)" fill="#F2C94C"/>
+</g>
+<g id="Vector 7">
+<use xlink:href="#path6_fill" transform="matrix(-4.37114e-08 1 -1 -4.37114e-08 2381.96 1859.74)" fill="#F2C94C"/>
+</g>
+</g>
+</g>
+<defs>
+<path id="path0_fill" d="M 0 9.49772L 7.98403 14.2466L 7.98403 4.74886L 0 0L 0 9.49772Z"/>
+<path id="path1_fill" d="M 0 28.5723L 31.6966 9.73516L 31.6966 0L 0 19.1537L 0 28.5723Z"/>
+<path id="path2_fill" d="M 7.98403 23.8234L 39.8403 4.74886L 31.9361 0L 0 19.0746L 7.98403 23.8234Z"/>
+<path id="path3_fill" d="M 8.14371 4.82801L 8.14371 51.8417L 0.159681 47.0928L 0 0L 8.14371 4.82801Z"/>
+<path id="path4_fill" d="M 7.90419 0L 0 4.82801L 7.90419 9.65601L 15.8084 4.82801L 7.90419 0Z"/>
+<path id="path5_fill" d="M 7.74451 42.898L 7.74451 4.82801L 0 0L 0.239521 47.3303L 7.74451 42.898Z"/>
+<path id="path6_fill" d="M 32.1756 19.4703L 0 0L 0 9.41857L 24.5908 24.14L 32.1756 19.4703Z"/>
+</defs>
+</svg>

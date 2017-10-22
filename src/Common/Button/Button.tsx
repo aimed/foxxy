@@ -1,4 +1,5 @@
 import './Button.css';
+
 import * as React from 'react';
 
 // Sound provided by http://facebook.design/soundkit
@@ -11,17 +12,26 @@ interface ButtonProps extends
 
 export class Button extends React.Component<ButtonProps, {}> {
     private static audio = new Audio(sound);
+
     public render() {
         const { className, onClick, plain, ...props } = this.props;
+        
         const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
             Button.audio.play();
+            
             if (onClick) {
                 onClick(event);
             }
         };
+
+        const classNames = [
+            'btn',
+            plain && '-plain'
+        ].filter(n => !!n);
+
         return (
             <button 
-                className={`btn ${className} ${plain ? 'btn--plain' : 'btn--float'}`}
+                className={classNames.join(' ')}
                 onClick={handleClick} 
                 {...props} 
             />

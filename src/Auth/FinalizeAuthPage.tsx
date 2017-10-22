@@ -21,8 +21,8 @@ export class FinalizeAuthPage extends React.Component<FinalizeAuthPageProps, Fin
         const queryString = this.props.location.search.replace('?', '');
         const query = querystring.parse(queryString);
 
-        const approved: string = query.approved;
-        const requestToken: string = query.request_token;
+        const approved = query.approved as string;
+        const requestToken = query.request_token as string;
 
         if (approved && approved === 'true') {
             if (requestToken) {

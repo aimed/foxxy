@@ -1,3 +1,7 @@
+.spinner-container {
+    position: relative;
+}
+
 .spinner {
     position: absolute;
     top: 50%;
