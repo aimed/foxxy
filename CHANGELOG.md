@@ -1,3 +1,13 @@
+<a name="1.0.2"></a>
+## [1.0.2](https://github.com/aimed/foxxy/compare/v1.0.1...v1.0.2) (2017-10-22)
+
+
+### Bug Fixes
+
+* **RandomPage:** actually disables login for now ([8bc3228](https://github.com/aimed/foxxy/commit/8bc3228))
+
+
+
 <a name="1.0.1"></a>
 ## [1.0.1](https://github.com/aimed/foxxy/compare/v1.0.0...v1.0.1) (2017-10-22)
 
