@@ -65,7 +65,7 @@ export class TMDBConnection {
      * @memberof TMDBConnection
      */
     public getSession(): TMDBSession | null {
-        const localSession = window.localStorage.getItem('ssid');
+        const localSession = window.localStorage && window.localStorage.getItem('ssid');
         if (!this.session && localSession) {
             this.session = new TMDBSession(localSession);
         }

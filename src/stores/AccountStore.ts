@@ -11,7 +11,7 @@ export class AccountStore {
     public account: TMDBAccount | null = null;
 
     static sessionFromLocalStorage(): TMDBSession | null {
-        const ssid = window.localStorage.getItem('ssid');
+        const ssid = window.localStorage && window.localStorage.getItem('ssid');
         return ssid ? new TMDBSession(ssid) : null;
     }
 

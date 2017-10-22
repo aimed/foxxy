@@ -14,8 +14,8 @@ export class RandomStore {
     }
     
     constructor() {
-        this.rerollCount = parseInt(window.localStorage.getItem('rerollCount') || '0', 10);
-        const rerollCountUpdatedString = window.localStorage.getItem('rerollCountUpdated');
+        this.rerollCount = parseInt(window.localStorage && window.localStorage.getItem('rerollCount') || '0', 10);
+        const rerollCountUpdatedString = window.localStorage && window.localStorage.getItem('rerollCountUpdated');
         if (rerollCountUpdatedString) {
             const updated = new Date(rerollCountUpdatedString);
             if (updated.getDate() !== new Date().getDate()) {
