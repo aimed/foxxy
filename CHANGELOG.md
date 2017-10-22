@@ -1,3 +1,14 @@
+<a name="1.1.0"></a>
+# [1.1.0](https://github.com/aimed/foxxy/compare/v1.0.2...v1.1.0) (2017-10-22)
+
+
+### Features
+
+* **build:** generates static sites for surge ([26c6c2b](https://github.com/aimed/foxxy/commit/26c6c2b))
+* **details:** adds date to movie details ([a1cdfb9](https://github.com/aimed/foxxy/commit/a1cdfb9))
+
+
+
 <a name="1.0.2"></a>
 ## [1.0.2](https://github.com/aimed/foxxy/compare/v1.0.1...v1.0.2) (2017-10-22)
 
