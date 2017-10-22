@@ -33,6 +33,13 @@
     background: linear-gradient(0deg, #F7F7F7 0%, rgba(247, 247, 247, 0.8) 100%);
 }
 
+.random-page-details__release-year {
+    margin: 0.2em 0;
+    font-size: 0.8;
+    font-weight: lighter;
+    color: #333333;
+}
+
 .random-page-details__title {
 }
 

@@ -15,6 +15,7 @@ export class RandomPageDetails extends React.Component<RandomPageDetailsProps, R
         return (
             <section className="random-page-details">
                 <h1 className="random-page-details__title">{movie.title}</h1>
+                <div className="random-page-details__release-year">{movie.releaseDate.getFullYear()}</div>
                 <div className="random-page-details__description">{movie.overview}</div>
                 <div className="random-page-details__genres"><GenreListWithData genreIds={movie.genreIds} /></div>
                 <div className="random-page-details__credits">
