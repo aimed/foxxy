@@ -4,6 +4,42 @@ import { TMDBPage } from './TMDBPage';
 
 /**
  * 
+ */
+type TMDBGravatarInfo = {
+    hash: string;
+};
+
+/**
+ * 
+ * 
+ * @class TMDBAvatar
+ */
+class TMDBAvatar {
+    /**
+     * 
+     * 
+     * @type {TMDBGravatarInfo}
+     * @memberof TMDBAvatar
+     */
+    public gravatar?: TMDBGravatarInfo;
+
+    /**
+     * 
+     * 
+     * @static
+     * @param {*} data 
+     * @returns 
+     * @memberof TMDBAvatar
+     */
+    public static fromJSON(data: any) {
+        const avatar = new TMDBAvatar();
+        avatar.gravatar = data.gravatar && { hash: data.gravatar.hash };
+        return avatar;
+    }
+}
+
+/**
+ * 
  * 
  * @export
  * @class TMDBAccount
@@ -24,6 +60,14 @@ export class TMDBAccount {
      * @memberof TMDBAccount
      */
     public username: string;
+
+    /**
+     * 
+     * 
+     * @type {TMDBAvatar}
+     * @memberof TMDBAccount
+     */
+    public avatar: TMDBAvatar;
     
     /**
      * 
@@ -104,7 +148,7 @@ export class TMDBAccount {
      * @memberof TMDBAccount
      */
     public static fromJSON(data: any): TMDBAccount {
-        return new TMDBAccount(data.id, data.username);
+        return new TMDBAccount(data.id, data.username, TMDBAvatar.fromJSON(data.avatar));
     }
     
     /**
@@ -113,8 +157,9 @@ export class TMDBAccount {
      * @param {string} username 
      * @memberof TMDBAccount
      */
-    constructor(id: number, username: string) {
+    constructor(id: number, username: string, avatar: TMDBAvatar) {
         this.id = id;
         this.username = username;
+        this.avatar = avatar;
     }
 }
