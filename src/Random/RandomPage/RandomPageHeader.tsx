@@ -29,7 +29,7 @@ export class RandomPageHeader extends React.Component<RandomPageHeaderProps, Ran
     }
 
     render() {
-        const account = connectionStore.account;
+        const { account, session } = connectionStore;
         const { onReroll } = this.props;
         
         return (
@@ -45,7 +45,7 @@ export class RandomPageHeader extends React.Component<RandomPageHeaderProps, Ran
                             </PopoverMenu>
                         }
 
-                        {!account && 
+                        {!account && !session && 
                             <Button plain onClick={this.signIn}>Connect to TMDb</Button>
                         }
                     </Menu>
