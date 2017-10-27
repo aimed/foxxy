@@ -6,8 +6,7 @@ import { RouteComponentProps, withRouter } from 'react-router';
 import { Spinner } from '../Common/Spinner/Spinner';
 import { TMDBAuthentication } from '../Api/TMDB/TMDBAuthentication';
 import { TMDBRequestToken } from '../Api/TMDB/TMDBRequestToken';
-import { accountStore } from '../stores/AccountStore';
-import { defaultConnection } from '../Api/TMDB/TMDBConnection';
+import { connectionStore } from '../stores/ConnectionStore';
 
 export interface FinalizeAuthPageProps extends RouteComponentProps<{}> {
 }
@@ -27,9 +26,8 @@ export class FinalizeAuthPage extends React.Component<FinalizeAuthPageProps, Fin
         if (approved && approved === 'true') {
             if (requestToken) {
                 const token = TMDBRequestToken.fromTokenString(requestToken);
-                const session = await TMDBAuthentication.getSessionId(defaultConnection, token);
-                accountStore.session = session;
-                window.localStorage.setItem('ssid', session.sessionId);
+                const session = await TMDBAuthentication.getSessionId(connectionStore.connection, token);
+                connectionStore.session = session;
                 this.props.history.replace('/');
                 return;
             }

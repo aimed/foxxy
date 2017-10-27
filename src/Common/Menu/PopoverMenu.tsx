@@ -6,7 +6,7 @@ export interface PopoverMenuState {
     visible: boolean;
 }
 
-export interface PopoverMenuProps { 
+export interface PopoverMenuProps {
     label: string | JSX.Element;
     anchor?: 'bottom-left' | 'bottom-right';
 }
@@ -30,19 +30,27 @@ export class PopoverMenu extends React.Component<PopoverMenuProps, PopoverMenuSt
 
     onDocumentClick = (e: Event) => {
         if (!this.isChildOfRef(e.srcElement)) {
-            this.toggle(false);
+            this.toggle();
         }
     }
 
-    toggle = (visible?: boolean) => {
-        this.setState({ visible: visible !== undefined ? visible : !this.state.visible });
+    toggle = () => {
+        const visible = !this.state.visible;
+        this.setState({ visible });
+
+        if (visible) {
+            this.registerDocumentListener();
+        } else {
+            this.unregisterDocumentListener();
+        }
+        
     }
 
-    componentDidMount() {
+    registerDocumentListener() {
         document.addEventListener('click', this.onDocumentClick);
     }
 
-    componentWillUnmount() {
+    unregisterDocumentListener() {
         document.removeEventListener('click', this.onDocumentClick);
     }
 
@@ -56,9 +64,9 @@ export class PopoverMenu extends React.Component<PopoverMenuProps, PopoverMenuSt
         return (
             <div className={classNames.join(' ')} ref={r => this.ref = r}>
                 <div className="popovermenu__label" onClick={e => this.toggle()}>{label}</div>
-                <div className="popovermenu__inner">{
-                    this.state.visible && this.props.children
-                }</div>
+                {this.state.visible &&
+                    <div className="popovermenu__inner">{this.props.children}</div>
+                }
             </div>
         );
     }

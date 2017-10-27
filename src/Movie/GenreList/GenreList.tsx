@@ -5,11 +5,11 @@ import * as React from 'react';
 import { QueryRenderer, QueryRendererComponentProps } from '../../Common/QueryRenderer/QueryRenderer';
 
 import { TMDBGenre } from '../../Api/TMDB/TMDBGenre';
-import { defaultConnection } from '../../Api/TMDB/TMDBConnection';
+import { connectionStore } from '../../stores/ConnectionStore';
 
 export type GenreQuery = { [index: number]: TMDBGenre };
 
-export interface GenreListState { }
+export interface GenreListState {}
 export interface GenreListProps extends QueryRendererComponentProps<GenreQuery> {
     genreIds: number[];
 }
@@ -39,7 +39,7 @@ export interface GenreListWithDataProps {
 export class GenreListWithData extends React.Component<GenreListWithDataProps, GenreListWithDataState> {
     query = async () => {
         const genres: { [index: number]: TMDBGenre } = {};
-        const genreList = await TMDBGenre.getGenres(defaultConnection);
+        const genreList = await TMDBGenre.getGenres(connectionStore.connection);
 
         for (const genre of genreList) {
             genres[genre.id] = genre;

@@ -1,6 +1,8 @@
 import { TMDBConnection } from './TMDBConnection';
 
 export class TMDBGenre {
+    private static _genres: TMDBGenre[] | null = null;
+
     public id: number;
     public name: string;
 
@@ -11,8 +13,11 @@ export class TMDBGenre {
         return genre;
     }
 
-    public static getGenres(con: TMDBConnection): Promise<TMDBGenre[]> {
-        return con.getRequest(TMDBGenre.fromResponse, `/genre/movie/list`);
+    public static async getGenres(con: TMDBConnection): Promise<TMDBGenre[]> {
+        if (!TMDBGenre._genres) {
+            TMDBGenre._genres = await con.getRequest(TMDBGenre.fromResponse, `/genre/movie/list`);
+        }
+        return TMDBGenre._genres;
     }
 
     private static fromResponse(data: any): TMDBGenre[] {

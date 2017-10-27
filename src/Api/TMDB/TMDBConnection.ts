@@ -35,10 +35,10 @@ export class TMDBConnection {
      * @type {(TMDBSession | null)}
      * @memberof TMDBConnection
      */
-    private session: TMDBSession | null = null;
+    private _session: TMDBSession | null = null;
 
     /**
-     * Checks if the response was successfull.
+     * Checks if action was successfull.
      * 
      * @static
      * @param {*} data 
@@ -65,21 +65,17 @@ export class TMDBConnection {
      * @memberof TMDBConnection
      */
     public getSession(): TMDBSession | null {
-        const localSession = window.localStorage && window.localStorage.getItem('ssid');
-        if (!this.session && localSession) {
-            this.session = new TMDBSession(localSession);
-        }
-        return this.session;
+        return this._session;
     }
 
     /**
      * Sets the session. This authenticates requests with the given user.
      * 
-     * @param {TMDBSession} session 
+     * @param {TMDBSession | null} session 
      * @memberof TMDBConnection
      */
-    public setSession(session: TMDBSession) {
-        this.session = session;
+    public setSession(session: TMDBSession | null) {
+        this._session = session;
     }
 
     /**
@@ -89,8 +85,8 @@ export class TMDBConnection {
      * @memberof TMDBConnection
      */
     public destroySession() {
-        window.localStorage.removeItem('ssid');
-        this.session = null;
+        // tslint:disable-next-line:no-unused-expression
+        this._session && this._session.destroy();
     }
 
     /**
@@ -108,7 +104,7 @@ export class TMDBConnection {
         const queryData = { 
             ...query, 
             api_key: this._apiKey, 
-            session_id: this.session ? this.session.sessionId : undefined 
+            session_id: this._session ? this._session.sessionId : undefined 
         };
         const queryString = querystring.stringify(queryData);
         const url = `${this._baseUrl}${endpoint}?${queryString}`;
@@ -136,7 +132,7 @@ export class TMDBConnection {
         const queryData = { 
             ...query, 
             api_key: this._apiKey, 
-            session_id: this.session ? this.session.sessionId : undefined 
+            session_id: this._session ? this._session.sessionId : undefined 
         };
         const queryString = querystring.stringify(queryData);
         const url = `${this._baseUrl}${endpoint}?${queryString}`;
@@ -149,14 +145,3 @@ export class TMDBConnection {
         return responseParser(json);
     }
 }
-
-const tmdbApiKey = process.env.REACT_APP_TMDB_API_KEY as string;
-
-if (!tmdbApiKey) {
-    throw new Error('No REACT_APP_TMDB_API_KEY set.');
-}
-
-/**
- * A preconfigured connection that can be used within the app.
- */
-export const defaultConnection = new TMDBConnection(tmdbApiKey);

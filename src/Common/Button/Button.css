@@ -14,10 +14,10 @@
     border-radius: 4px;
 }
 
-.btn:hover {
-    /* K */
-}
-
 .btn.-plain {
     box-shadow: none;
+}
+
+.btn:hover {
+    background: rgb(216, 216, 216);
 }

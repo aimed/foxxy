@@ -10,8 +10,7 @@ import { RandomPageHeader } from './RandomPageHeader';
 import { RandomPageHero } from './RandomPageHero';
 import { TMDBAccount } from '../../Api/TMDB/TMDBAccount';
 import { TMDBPage } from '../../Api/TMDB/TMDBPage';
-import { accountStore } from '../../stores/AccountStore';
-import { defaultConnection } from '../../Api/TMDB/TMDBConnection';
+import { connectionStore } from '../../stores/ConnectionStore';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import { randomStore } from '../../stores/RandomStore';
@@ -37,7 +36,6 @@ function randomInArray<T>(items: T[]): T | null {
  */
 type QueryData = {
     movies: TMDBPage<TMDBMovie>;
-    account: TMDBAccount | null;
 };
 
 /**
@@ -47,7 +45,7 @@ type QueryData = {
  * @interface RandomPageProps
  * @extends {QueryRendererComponentProps<QueryData>}
  */
-export interface RandomPageProps extends QueryRendererComponentProps<QueryData> {}
+export interface RandomPageProps extends QueryRendererComponentProps<QueryData> { }
 
 /**
  * 
@@ -61,7 +59,7 @@ export class RandomPage extends React.Component<RandomPageProps, {}> {
     @observable
     public randomMovie: TMDBMovie | null = null;
 
-    public reroll = () => {        
+    public reroll = () => {
         this.randomMovie = randomInArray(this.props.data.movies.entries);
         randomStore.setRerollCount(randomStore.rerollCount + 1);
     }
@@ -72,7 +70,6 @@ export class RandomPage extends React.Component<RandomPageProps, {}> {
 
     public render() {
         const movie = this.randomMovie;
-        const account = this.props.data.account;
 
         if (!movie) {
             return null;
@@ -80,10 +77,7 @@ export class RandomPage extends React.Component<RandomPageProps, {}> {
 
         return (
             <div className="random-page">
-                <RandomPageHeader 
-                    account={account}
-                    onReroll={this.reroll}
-                />
+                <RandomPageHeader onReroll={this.reroll} />
                 <RandomPageHero movie={movie} />
                 <RandomPageDetails movie={movie} />
             </div>
@@ -105,12 +99,8 @@ export class RandomPageWithData extends React.Component<{}, {}> {
      * @memberof RandomPageWithData
      */
     query = async () => {
-        // Get the account if a session exists, but the account info hasn't been loaded yet.
-        if (accountStore.session && !accountStore.account) {
-            defaultConnection.setSession(accountStore.session);
-            // TODO: Enable account fetching again.
-            // accountStore.account = await TMDBAccount.getAccount(defaultConnection);
-        }
+        // The users account if availiable.
+        const { account, connection } = connectionStore;
 
         // Randomly select one year within the last x years.
         // From that year we'r randomly going to select a movie.
@@ -120,23 +110,19 @@ export class RandomPageWithData extends React.Component<{}, {}> {
             'vote_average.gte': 5
         };
 
-        // The users account if availiable.
-        const account = accountStore.account;
-
         // The movies to randomly select one from.
         const movies = account
-        ? await TMDBAccount.getWatchlist(defaultConnection, account)
-        : await TMDBMovie.discover(defaultConnection, discoverOptions);
+            ? await TMDBAccount.getWatchlist(connection, account)
+            : await TMDBMovie.discover(connection, discoverOptions);
 
         return {
-            account,
             movies
         };
     }
 
     render() {
         return (
-            <QueryRenderer 
+            <QueryRenderer
                 query={this.query}
                 component={RandomPage}
             />
