@@ -1,3 +1,23 @@
+<a name="1.2.0"></a>
+# [1.2.0](https://github.com/aimed/foxxy/compare/v1.1.0...v1.2.0) (2017-10-27)
+
+
+### Bug Fixes
+
+* **popover:** fixes display of buttons as label ([f99d7a1](https://github.com/aimed/foxxy/commit/f99d7a1))
+* **user:** only displays user menu when account is loaded ([d323c3e](https://github.com/aimed/foxxy/commit/d323c3e))
+
+
+### Features
+
+* **account:** ability to log in/out + refactoring ([a27b349](https://github.com/aimed/foxxy/commit/a27b349))
+* **account:** adds avatars ([854a848](https://github.com/aimed/foxxy/commit/854a848))
+* **icons:** adds ExpandMore icons ([ab6a8ae](https://github.com/aimed/foxxy/commit/ab6a8ae))
+* **page:** adds icon to header ([d863f80](https://github.com/aimed/foxxy/commit/d863f80))
+* **session:** adds ability to add delegates to observe sessions ([82888e6](https://github.com/aimed/foxxy/commit/82888e6))
+
+
+
 <a name="1.1.0"></a>
 # [1.1.0](https://github.com/aimed/foxxy/compare/v1.0.2...v1.1.0) (2017-10-22)
 
