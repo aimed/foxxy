@@ -1,6 +1,6 @@
+import { TMDBConnection } from './TMDBConnection';
 import { TMDBMovie } from './TMDBMovie';
 import { TMDBPage } from './TMDBPage';
-import { TMDBConnection } from './TMDBConnection';
 
 /**
  * 
@@ -35,18 +35,16 @@ export class TMDBAccount {
      */
     public static async getAccount(con: TMDBConnection) {
         const session = con.getSession();
+        
         if (!session) {
             throw new Error('Connection needs an active session');
         }
 
-        if (session.account) {
-            return session.account;
+        if (!session.account) {
+            session.account = await con.getRequest(TMDBAccount.fromJSON, `/account`);
         }
 
-        const account = await con.getRequest(TMDBAccount.fromJSON, `/account`);
-        session.account = account;
-        
-        return account;
+        return session.account;        
     }
 
     /**
