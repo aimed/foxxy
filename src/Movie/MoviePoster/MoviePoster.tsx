@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { TMDBMovie } from '../Api/TMDB/TMDBMovie';
+import { TMDBMovie } from '../../Api/TMDB/TMDBMovie';
 
 export interface MoviePosterProps extends React.HTMLAttributes<HTMLImageElement> {
     movie: TMDBMovie | null;

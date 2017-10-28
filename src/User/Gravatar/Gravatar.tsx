@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { TMDBAccount } from '../Api/TMDB/TMDBAccount';
+import { TMDBAccount } from '../../Api/TMDB/TMDBAccount';
 
 const gravatarUrl = (hash: string, size: number) => `https://www.gravatar.com/avatar/${hash}?s=${size}`;
 

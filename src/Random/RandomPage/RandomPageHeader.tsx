@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Button } from '../../Common/Button/Button';
-import { Gravatar } from '../../User/Gravatar';
+import { Gravatar } from '../../User/Gravatar/Gravatar';
 import { IconExpandMore } from '../../Common/Icons/IconExpandMore';
 import { Menu } from '../../Common/Menu/Menu';
 import { Navbar } from '../../Common/Navbar/Navbar';
@@ -32,29 +32,28 @@ export class RandomPageHeader extends React.Component<RandomPageHeaderProps, Ran
     render() {
         const { account, session } = connectionStore;
         const { onReroll } = this.props;
-        
+
         return (
             <Navbar
                 left={<img src={require('./FoxxyIcon.svg')} alt="Foxxy" />}
                 right={
                     <Menu direction="horizontal">
                         <Button plain onClick={onReroll}>Reroll</Button>
-                        
-                        {account && 
-                            <PopoverMenu 
+                        {account &&
+                            <span style={{display: 'flex', alignItems: 'center', marginRight: '-0.5em'}}>
+                                <Gravatar account={account} size={24} style={{ borderRadius: '50%' }} />
+                            </span>
+                        }
+                        {account &&
+                            <PopoverMenu
                                 label={
-                                    <Button plain>
-                                        <Gravatar account={account} size={14} style={{borderRadius: '50%'}} />
-                                        <span style={{margin: 'auto 0.5em'}}>{account.username}</span>
-                                        <IconExpandMore />
-                                    </Button>
+                                    <Button plain><IconExpandMore /></Button>
                                 }
                             >
                                 <Button plain onClick={this.signOut}>Sign out</Button>
                             </PopoverMenu>
                         }
-
-                        {!account && !session && 
+                        {!account && !session &&
                             <Button plain onClick={this.signIn}>Connect to TMDb</Button>
                         }
                     </Menu>

@@ -20,7 +20,7 @@ import { randomStore } from '../../stores/RandomStore';
  * 
  * @template T 
  * @param {T[]} items 
- * @returns {(T | null)} 
+ * @returns {(T | null)}
  */
 function randomInArray<T>(items: T[]): T | null {
     if (items.length === 0) {

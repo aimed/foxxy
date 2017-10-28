@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { MoviePoster } from '../../Movie/MoviePoster';
+import { MoviePoster } from '../../Movie/MoviePoster/MoviePoster';
 import { TMDBMovie } from '../../Api/TMDB/TMDBMovie';
 
 export interface RandomPageHeroState { }
