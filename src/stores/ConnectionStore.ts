@@ -1,4 +1,4 @@
-import { autorun, computed, observable } from 'mobx';
+import { autorun, computed, observable, when } from 'mobx';
 
 import { TMDBAccount } from '../Api/TMDB/TMDBAccount';
 import { TMDBConnection } from '../Api/TMDB/TMDBConnection';
@@ -44,10 +44,22 @@ export class ConnectionStore {
 
     constructor() {
         this.session = ConnectionStore.sessionFromLocalStorage();
+        
         autorun(() => {
             // Always bind the stores session to it's connection.
             this.connection.setSession(this.session);
         });
+    }
+
+    public whenAccount(): Promise<TMDBAccount | null> {
+        if (!this.session) {
+            return Promise.resolve(null);
+        }
+
+        return new Promise((resolve, reject) => when(
+            () => !!this.account,
+            () => resolve(this.account)
+        ));
     }
 }
 
