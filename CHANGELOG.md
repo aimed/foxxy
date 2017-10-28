@@ -1,3 +1,14 @@
+<a name="1.3.1"></a>
+## [1.3.1](https://github.com/aimed/foxxy/compare/v1.3.0...v1.3.1) (2017-10-28)
+
+
+### Bug Fixes
+
+* **button:** makes plain buttons actually plain ([60fa423](https://github.com/aimed/foxxy/commit/60fa423))
+* **header:** removes username + minor refactoring ([ec14e4f](https://github.com/aimed/foxxy/commit/ec14e4f))
+
+
+
 <a name="1.3.0"></a>
 # [1.3.0](https://github.com/aimed/foxxy/compare/v1.2.0...v1.3.0) (2017-10-28)
 
