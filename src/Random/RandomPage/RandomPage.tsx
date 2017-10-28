@@ -100,7 +100,8 @@ export class RandomPageWithData extends React.Component<{}, {}> {
      */
     query = async () => {
         // The users account if availiable.
-        const { account, connection } = connectionStore;
+        const { connection } = connectionStore;
+        const account = await connectionStore.whenAccount();
 
         // Randomly select one year within the last x years.
         // From that year we'r randomly going to select a movie.
