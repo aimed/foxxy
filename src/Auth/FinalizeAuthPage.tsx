@@ -37,7 +37,7 @@ export class FinalizeAuthPage extends React.Component<FinalizeAuthPageProps, Fin
 
     render() {
         return (
-            <Spinner text="Finalizing login..." />
+            <Spinner text="Connecting your account..." />
         );
     }
 }
