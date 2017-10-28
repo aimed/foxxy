@@ -1,3 +1,22 @@
+<a name="1.3.0"></a>
+# [1.3.0](https://github.com/aimed/foxxy/compare/v1.2.0...v1.3.0) (2017-10-28)
+
+
+### Bug Fixes
+
+* **button:** button content aligns verically centered now ([6ac986a](https://github.com/aimed/foxxy/commit/6ac986a))
+* **finalize-auth-page:** changes spinner message ([05f6b86](https://github.com/aimed/foxxy/commit/05f6b86))
+* **popover:** popover adjusts to content width ([958dce3](https://github.com/aimed/foxxy/commit/958dce3))
+* **randomPage:** properly waits for account to fetch watchlist ([e9efefb](https://github.com/aimed/foxxy/commit/e9efefb))
+
+
+### Features
+
+* **connectionStore:** adds ability to wait for account data to load ([1eaf9cd](https://github.com/aimed/foxxy/commit/1eaf9cd))
+* **user:** adds gravatar to username ([79c526e](https://github.com/aimed/foxxy/commit/79c526e))
+
+
+
 <a name="1.2.0"></a>
 # [1.2.0](https://github.com/aimed/foxxy/compare/v1.1.0...v1.2.0) (2017-10-27)
 
