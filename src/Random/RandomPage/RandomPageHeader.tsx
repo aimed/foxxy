@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { Button } from '../../Common/Button/Button';
+import { Gravatar } from '../../User/Gravatar';
 import { IconExpandMore } from '../../Common/Icons/IconExpandMore';
 import { Menu } from '../../Common/Menu/Menu';
 import { Navbar } from '../../Common/Navbar/Navbar';
@@ -40,7 +41,15 @@ export class RandomPageHeader extends React.Component<RandomPageHeaderProps, Ran
                         <Button plain onClick={onReroll}>Reroll</Button>
                         
                         {account && 
-                            <PopoverMenu label={<Button plain>{account.username} <IconExpandMore /></Button>}>
+                            <PopoverMenu 
+                                label={
+                                    <Button plain>
+                                        <Gravatar account={account} size={14} style={{borderRadius: '50%'}} />
+                                        <span style={{margin: 'auto 0.5em'}}>{account.username}</span>
+                                        <IconExpandMore />
+                                    </Button>
+                                }
+                            >
                                 <Button plain onClick={this.signOut}>Sign out</Button>
                             </PopoverMenu>
                         }
