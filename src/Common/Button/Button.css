@@ -20,6 +20,8 @@
 
 .btn.-plain {
     box-shadow: none;
+    border: none;
+    background: inherit;
 }
 
 .btn:hover {
