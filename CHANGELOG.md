@@ -1,3 +1,21 @@
+<a name="1.4.0"></a>
+# [1.4.0](https://github.com/aimed/foxxy/compare/v1.3.1...v1.4.0) (2017-11-02)
+
+
+### Bug Fixes
+
+* **button:** centers content ([217b271](https://github.com/aimed/foxxy/commit/217b271))
+* **button:** makes sound optional ([17ba9de](https://github.com/aimed/foxxy/commit/17ba9de))
+
+
+### Features
+
+* **filters:** properly implements random movie filters ([da78279](https://github.com/aimed/foxxy/commit/da78279))
+* **QueryRenderer:** adds variables ([8dfe549](https://github.com/aimed/foxxy/commit/8dfe549))
+* **tmdb:** connection now caches get queries ([3979c7e](https://github.com/aimed/foxxy/commit/3979c7e))
+
+
+
 <a name="1.3.1"></a>
 ## [1.3.1](https://github.com/aimed/foxxy/compare/v1.3.0...v1.3.1) (2017-10-28)
 
