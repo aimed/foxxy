@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import { RouteComponentProps, withRouter } from 'react-router';
+
 import { Button } from '../../Common/Button/Button';
 import { Gravatar } from '../../User/Gravatar/Gravatar';
 import { IconExpandMore } from '../../Common/Icons/IconExpandMore';
@@ -15,8 +17,19 @@ export interface RandomPageHeaderProps {
     onReroll?: () => void;
 }
 
+@withRouter
 @observer
 export class RandomPageHeader extends React.Component<RandomPageHeaderProps, RandomPageHeaderState> {
+    showFilterMenu = () => {
+        const router = this.props as any as RouteComponentProps<{}>;
+        router.history.push('/filters');
+    }
+
+    showRandomMovie = () => {
+        const router = this.props as any as RouteComponentProps<{}>;
+        router.history.push('/');        
+    }
+
     signIn = () => {
         TMDBAuthentication.getRequestToken(connectionStore.connection).then(token => {
             const url = `${window.location.origin}/tmdb-finalize-auth`;
@@ -38,7 +51,13 @@ export class RandomPageHeader extends React.Component<RandomPageHeaderProps, Ran
                 left={<img src={require('./FoxxyIcon.svg')} alt="Foxxy" />}
                 right={
                     <Menu direction="horizontal">
-                        <Button plain onClick={onReroll}>Reroll</Button>
+                        {onReroll && 
+                            <Button plain onClick={onReroll}>Reroll</Button>
+                        }
+
+                        <Button plain onClick={this.showRandomMovie}>Random</Button>
+                        <Button plain onClick={this.showFilterMenu}>Filters</Button>
+
                         {account &&
                             <span style={{display: 'flex', alignItems: 'center', marginRight: '-0.5em'}}>
                                 <Gravatar account={account} size={24} style={{ borderRadius: '50%' }} />
@@ -53,6 +72,7 @@ export class RandomPageHeader extends React.Component<RandomPageHeaderProps, Ran
                                 <Button plain onClick={this.signOut}>Sign out</Button>
                             </PopoverMenu>
                         }
+                        
                         {!account && !session &&
                             <Button plain onClick={this.signIn}>Connect to TMDb</Button>
                         }

@@ -9,8 +9,9 @@ import { RandomPageDetails } from './RandomPageDetails';
 import { RandomPageHeader } from './RandomPageHeader';
 import { RandomPageHero } from './RandomPageHero';
 import { TMDBAccount } from '../../Api/TMDB/TMDBAccount';
-import { TMDBPage } from '../../Api/TMDB/TMDBPage';
+import { TMDBGenre } from '../../Api/TMDB/TMDBGenre';
 import { connectionStore } from '../../stores/ConnectionStore';
+import { filtersStore } from '../../stores/FiltersStore';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import { randomStore } from '../../stores/RandomStore';
@@ -35,7 +36,7 @@ function randomInArray<T>(items: T[]): T | null {
  * Data required for the page.
  */
 type QueryData = {
-    movies: TMDBPage<TMDBMovie>;
+    movies: TMDBMovie[];
 };
 
 /**
@@ -60,7 +61,7 @@ export class RandomPage extends React.Component<RandomPageProps, {}> {
     public randomMovie: TMDBMovie | null = null;
 
     public reroll = () => {
-        this.randomMovie = randomInArray(this.props.data.movies.entries);
+        this.randomMovie = randomInArray(this.props.data.movies);
         randomStore.setRerollCount(randomStore.rerollCount + 1);
     }
 
@@ -85,6 +86,11 @@ export class RandomPage extends React.Component<RandomPageProps, {}> {
     }
 }
 
+type QueryVariables = {
+    genres: TMDBGenre[];
+    watchlist: boolean;
+};
+
 /**
  * 
  * 
@@ -98,7 +104,7 @@ export class RandomPageWithData extends React.Component<{}, {}> {
      * 
      * @memberof RandomPageWithData
      */
-    query = async () => {
+    query = async (variables: QueryVariables): Promise<QueryData> => {
         // The users account if availiable.
         const { connection } = connectionStore;
         const account = await connectionStore.whenAccount();
@@ -111,19 +117,33 @@ export class RandomPageWithData extends React.Component<{}, {}> {
             'vote_average.gte': 5
         };
 
+        if (variables.genres.length > 0) {
+            discoverOptions.with_genres = variables.genres.map(genre => genre.id).join(',');
+        }
+        
         // The movies to randomly select one from.
-        const movies = account
+        const useWatchlist = account && variables.watchlist;
+        const filterGenres = variables.genres.length > 0;
+        const moviesPage = account && useWatchlist
             ? await TMDBAccount.getWatchlist(connection, account)
             : await TMDBMovie.discover(connection, discoverOptions);
-
+        
+        const movies = useWatchlist && filterGenres
+            // tslint:disable-next-line:max-line-length
+            ? moviesPage.entries.filter(movie => !!variables.genres.find(genre => !!movie.genreIds.find(gid => gid === genre.id)))
+            : moviesPage.entries;
+        
         return {
             movies
         };
     }
 
     render() {
+        const { genres, watchlist } = filtersStore;
+        const variables: QueryVariables = { genres, watchlist };
         return (
             <QueryRenderer
+                variables={variables}
                 query={this.query}
                 component={RandomPage}
             />

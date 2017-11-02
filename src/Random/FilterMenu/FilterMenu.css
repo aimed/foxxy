@@ -1,0 +1,43 @@
+.filter-menu {
+    padding: 0.5em;
+    margin: auto auto;
+    max-width: 60ch;
+}
+
+.filter-menu fieldset {
+    border: none;
+}
+
+.filter-genre__item {
+    margin: 1px 0;
+    background: #EFEFEF;
+    color: #828282;
+    position: relative;
+    font-size: 0.8em;
+    padding: 1em 8px;
+    cursor: pointer;
+}
+
+.filter-genre__item:hover {
+    background: rgb(231, 231, 231);
+}
+
+
+.filter-genre__item.-selected {
+    color: #4F4F4F;    
+}
+
+.filter-genre__item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 2px;
+    display: inline-block;
+    background: #BDBDBD;
+}
+
+.filter-genre__item.-selected::before {
+    background: #F7CC3B;
+}
