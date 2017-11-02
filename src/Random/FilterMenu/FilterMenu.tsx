@@ -78,6 +78,19 @@ export class FilterMenu extends React.Component<FilterMenuProps, FilterMenuState
     private selectedGenres: TMDBGenre[] = [...filtersStore.genres];
 
     /**
+     * Gets all genre ids in the watchlist.
+     * 
+     * @readonly
+     * @private
+     * @memberof FilterMenu
+     */
+    private get watchlistGenreIds() {
+        return this.props.data.watchlist 
+            ? this.props.data.watchlist.entries.reduce((p, c) => [...p, ...c.genreIds], []) 
+            : [];
+    }
+
+    /**
      * Determines if the genre has been selected by the user.
      * 
      * @memberof FilterMenu
@@ -105,8 +118,11 @@ export class FilterMenu extends React.Component<FilterMenuProps, FilterMenuState
      */
     applyFilters = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        filtersStore.genres = this.selectedGenres;
         filtersStore.watchlist = this.watchlistOnly;
+
+        filtersStore.genres = this.watchlistOnly 
+            ? this.selectedGenres.filter(genre => this.watchlistGenreIds.find(id => id === genre.id))
+            : this.selectedGenres;
     }
 
     /**
@@ -117,11 +133,9 @@ export class FilterMenu extends React.Component<FilterMenuProps, FilterMenuState
      */
     render() {
         const { data: { account, genres, watchlist } } = this.props;
-        const watchlistGenreIds = watchlist 
-            ? watchlist.entries.reduce((p, c) => [...p, ...c.genreIds], []) 
-            : [];
+
         const availiableGenres = account && this.watchlistOnly 
-            ? genres.filter(genre => watchlistGenreIds.find(id => id === genre.id)) 
+            ? genres.filter(genre => this.watchlistGenreIds.find(id => id === genre.id)) 
             : genres;
 
         return (
