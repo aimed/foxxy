@@ -31,8 +31,9 @@ export class ConnectionStore {
             // Remove account and session data from local storage.
             this.account = null;
             // tslint:disable-next-line:no-unused-expression
-            this.session && window.localStorage.removeItem(this.session.sessionId);
-            window.localStorage.removeItem('ssid');
+            window.localStorage && this.session && window.localStorage.removeItem(this.session.sessionId);
+            // tslint:disable-next-line:no-unused-expression
+            window.localStorage && window.localStorage.removeItem('ssid');
         } else {
             window.localStorage.setItem('ssid', session.sessionId);
             this.account = ConnectionStore.accountFromLocalStorage(session);
