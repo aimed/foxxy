@@ -10,6 +10,15 @@ import { TMDBSession } from './TMDBSession';
  */
 export class TMDBConnection {
     /**
+     * A response cache.
+     * 
+     * @private
+     * @type {{ [index: string]: any }}
+     * @memberof TMDBConnection
+     */
+    private _cache: { [index: string]: any } = {};
+
+    /**
      * The api key of the app. Used to authenticate.
      * 
      * @private
@@ -100,16 +109,27 @@ export class TMDBConnection {
      * @memberof TMDBConnection
      */
     public async getRequest<T>(
-        responseParser: (response: any) => T, endpoint: string, query: Object = {}): Promise<T> {
+        responseParser: (response: any) => T, 
+        endpoint: string, 
+        query: Object = {}
+    ): Promise<T> {
         const queryData = { 
-            ...query, 
+            ...query,
             api_key: this._apiKey, 
             session_id: this._session ? this._session.sessionId : undefined 
         };
         const queryString = querystring.stringify(queryData);
         const url = `${this._baseUrl}${endpoint}?${queryString}`;
+
+        // Check the cache if a response for this exists,
+        // if so return the cached value.
+        if (this._cache[url]) {
+            return responseParser(this._cache[url]);
+        }
+
         const response = await window.fetch(url);
         const json = await response.json();
+        this._cache[url] = json;
         return responseParser(json);
     }
 
@@ -128,7 +148,8 @@ export class TMDBConnection {
         responseParser: (response: any) => T, 
         endpoint: string,
         data: Object = {},
-        query: Object = {}): Promise<T> {
+        query: Object = {}
+    ): Promise<T> {
         const queryData = { 
             ...query, 
             api_key: this._apiKey, 
