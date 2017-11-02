@@ -1,6 +1,6 @@
 {
   "name": "foxxy",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "private": true,
   "dependencies": {
     "@types/jest": "^20.0.7",

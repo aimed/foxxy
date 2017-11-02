@@ -1,3 +1,13 @@
+<a name="1.4.1"></a>
+## [1.4.1](https://github.com/aimed/foxxy/compare/v1.4.0...v1.4.1) (2017-11-02)
+
+
+### Bug Fixes
+
+* **snapshot:** fixes localStorage access with snapshot ([cf5c6b8](https://github.com/aimed/foxxy/commit/cf5c6b8))
+
+
+
 <a name="1.4.0"></a>
 # [1.4.0](https://github.com/aimed/foxxy/compare/v1.3.1...v1.4.0) (2017-11-02)
 
