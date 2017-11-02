@@ -52,12 +52,16 @@ export class QueryRenderer<T, V> extends React.Component<QueryRendererProps<T, V
     state: QueryRendererState<T> = {
     };
     
-    refresh = () => {
-        this.props.query(this.props.variables).then(data => this.setState({ data }));        
+    refresh = (props?: QueryRendererProps<T, V>) => {
+        this.props.query((props || this.props).variables).then(data => this.setState({ data }));        
     }
 
     componentWillMount() {
         this.refresh();
+    }
+
+    componentWillReceiveProps(next: QueryRendererProps<T, V>) {
+        this.refresh(next);
     }
 
     render() {
