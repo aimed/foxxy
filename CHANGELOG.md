@@ -1,3 +1,15 @@
+<a name="1.4.2"></a>
+## [1.4.2](https://github.com/aimed/foxxy/compare/v1.4.1...v1.4.2) (2017-11-02)
+
+
+### Bug Fixes
+
+* **FilterMenu:** fixes missing observer attribute ([a97eb9d](https://github.com/aimed/foxxy/commit/a97eb9d))
+* **filters:** applies selected genres when using watchlist ([330dbcf](https://github.com/aimed/foxxy/commit/330dbcf))
+* **QueryRenderer:** fixes a bug that prevents the query from updating ([410d4cc](https://github.com/aimed/foxxy/commit/410d4cc))
+
+
+
 <a name="1.4.1"></a>
 ## [1.4.1](https://github.com/aimed/foxxy/compare/v1.4.0...v1.4.1) (2017-11-02)
 
