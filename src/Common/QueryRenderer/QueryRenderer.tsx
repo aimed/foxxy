@@ -32,11 +32,12 @@ export interface QueryRendererState<T> {
  * @interface QueryRendererProps
  * @template T 
  */
-export interface QueryRendererProps<T> {
-    query: () => Promise<T>;
+export interface QueryRendererProps<T, V> {
+    query: (variables?: V) => Promise<T>;
     // tslint:disable-next-line:max-line-length
     component: React.ComponentClass<QueryRendererComponentProps<T>> | React.StatelessComponent<QueryRendererComponentProps<T>>;
     loading?: () => JSX.Element | null;
+    variables?: V;
 }
 
 /**
@@ -47,12 +48,12 @@ export interface QueryRendererProps<T> {
  * @extends {React.Component<QueryRendererProps<T>, QueryRendererState<T>>}
  * @template T 
  */
-export class QueryRenderer<T extends {}> extends React.Component<QueryRendererProps<T>, QueryRendererState<T>> {
+export class QueryRenderer<T, V> extends React.Component<QueryRendererProps<T, V>, QueryRendererState<T>> {
     state: QueryRendererState<T> = {
     };
     
     refresh = () => {
-        this.props.query().then(data => this.setState({ data }));        
+        this.props.query(this.props.variables).then(data => this.setState({ data }));        
     }
 
     componentWillMount() {
