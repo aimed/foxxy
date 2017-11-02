@@ -133,7 +133,7 @@ export class FilterMenu extends React.Component<FilterMenuProps, FilterMenuState
      */
     render() {
         const { data: { account, genres, watchlist } } = this.props;
-
+        
         const availiableGenres = account && this.watchlistOnly 
             ? genres.filter(genre => this.watchlistGenreIds.find(id => id === genre.id)) 
             : genres;
@@ -187,12 +187,13 @@ type QueryVariables = {
  * @class FilterMenuWithData
  * @extends {React.Component<{}, {}>}
  */
+@observer
 export class FilterMenuWithData extends React.Component<{}, {}> {
     query = async (variables: QueryVariables) => {
         const { account } = variables;
         const genres = await TMDBGenre.getGenres(connectionStore.connection);
         const watchlist = account ? await TMDBAccount.getWatchlist(connectionStore.connection, account) : null;
-
+        
         return {
             watchlist,
             account,
@@ -201,10 +202,12 @@ export class FilterMenuWithData extends React.Component<{}, {}> {
     }
 
     render() {
-        const { account } = connectionStore;
+        const account = connectionStore.account;
+        const variables: QueryVariables = { account };
+        
         return (
             <QueryRenderer
-                variables={{ account }}
+                variables={variables}
                 query={this.query}
                 component={FilterMenu}
             />
