@@ -4,7 +4,6 @@ import * as React from 'react';
 
 import { Button } from '../../Common/Button/Button';
 import { QueryRenderer } from '../../Common/QueryRenderer/QueryRenderer';
-import { RandomPageHeader } from '../RandomPage/RandomPageHeader';
 import { TMDBAccount } from '../../Api/TMDB/TMDBAccount';
 import { TMDBGenre } from '../../Api/TMDB/TMDBGenre';
 import { TMDBMovie } from '../../Api/TMDB/TMDBMovie';
@@ -22,7 +21,7 @@ interface FilterGenreItemProps {
 
 const FilterGenreItem = (props: FilterGenreItemProps) => {
     const { genre, toggle, isSelected } = props;
-    
+
     const classNames = [
         'filter-genre__item',
         isSelected && '-selected'
@@ -41,7 +40,7 @@ const allGenres = new TMDBGenre(-1, 'All genres');
 export interface FilterMenuState { }
 export interface FilterMenuProps {
     refresh: () => void;
-    data: { 
+    data: {
         account: TMDBAccount | null;
         genres: TMDBGenre[];
         watchlist: TMDBPage<TMDBMovie> | null;
@@ -85,8 +84,8 @@ export class FilterMenu extends React.Component<FilterMenuProps, FilterMenuState
      * @memberof FilterMenu
      */
     private get watchlistGenreIds() {
-        return this.props.data.watchlist 
-            ? this.props.data.watchlist.entries.reduce((p, c) => [...p, ...c.genreIds], []) 
+        return this.props.data.watchlist
+            ? this.props.data.watchlist.entries.reduce((p, c) => [...p, ...c.genreIds], [])
             : [];
     }
 
@@ -120,7 +119,7 @@ export class FilterMenu extends React.Component<FilterMenuProps, FilterMenuState
         e.preventDefault();
         filtersStore.watchlist = this.watchlistOnly;
 
-        filtersStore.genres = this.watchlistOnly 
+        filtersStore.genres = this.watchlistOnly
             ? this.selectedGenres.filter(genre => this.watchlistGenreIds.find(id => id === genre.id))
             : this.selectedGenres;
     }
@@ -133,45 +132,42 @@ export class FilterMenu extends React.Component<FilterMenuProps, FilterMenuState
      */
     render() {
         const { data: { account, genres, watchlist } } = this.props;
-        
-        const availiableGenres = account && this.watchlistOnly 
-            ? genres.filter(genre => this.watchlistGenreIds.find(id => id === genre.id)) 
+
+        const availiableGenres = account && this.watchlistOnly
+            ? genres.filter(genre => this.watchlistGenreIds.find(id => id === genre.id))
             : genres;
 
         return (
-            <div>
-                <RandomPageHeader />
-                <form className="filter-menu" onSubmit={this.applyFilters}>
+            <form className="filter-menu" onSubmit={this.applyFilters}>
+                <fieldset>
+                    <Button type="submit">Apply</Button>
+                </fieldset>
+                {account && watchlist && watchlist.entries.length > 0 &&
                     <fieldset>
-                        <Button type="submit">Apply</Button>
-                    </fieldset>
-                    {account && watchlist && watchlist.entries.length > 0 &&
-                        <fieldset>
-                            <input 
-                                type="checkbox" 
-                                checked={this.watchlistOnly} 
-                                onChange={e => this.watchlistOnly = e.currentTarget.checked} 
-                            /> 
-                            Only from my watchlist
-                        </fieldset>
-                    }
-                    <fieldset>
-                        <FilterGenreItem 
-                            genre={allGenres} 
-                            isSelected={this.selectedGenres.length === 0} 
-                            toggle={() => this.selectedGenres = []}
+                        <input
+                            type="checkbox"
+                            checked={this.watchlistOnly}
+                            onChange={e => this.watchlistOnly = e.currentTarget.checked}
                         />
-                        {availiableGenres.map(genre => 
-                            <FilterGenreItem 
-                                key={genre.id} 
-                                genre={genre} 
-                                isSelected={this.isSelected(genre)} 
-                                toggle={this.toggleGenre} 
-                            />
-                        )}
-                    </fieldset>
-                </form>
-            </div>
+                        Only from my watchlist
+                        </fieldset>
+                }
+                <fieldset>
+                    <FilterGenreItem
+                        genre={allGenres}
+                        isSelected={this.selectedGenres.length === 0}
+                        toggle={() => this.selectedGenres = []}
+                    />
+                    {availiableGenres.map(genre =>
+                        <FilterGenreItem
+                            key={genre.id}
+                            genre={genre}
+                            isSelected={this.isSelected(genre)}
+                            toggle={this.toggleGenre}
+                        />
+                    )}
+                </fieldset>
+            </form>
         );
     }
 }
@@ -193,7 +189,7 @@ export class FilterMenuWithData extends React.Component<{}, {}> {
         const { account } = variables;
         const genres = await TMDBGenre.getGenres(connectionStore.connection);
         const watchlist = account ? await TMDBAccount.getWatchlist(connectionStore.connection, account) : null;
-        
+
         return {
             watchlist,
             account,
@@ -204,7 +200,7 @@ export class FilterMenuWithData extends React.Component<{}, {}> {
     render() {
         const account = connectionStore.account;
         const variables: QueryVariables = { account };
-        
+
         return (
             <QueryRenderer
                 variables={variables}

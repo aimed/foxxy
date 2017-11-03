@@ -5,6 +5,7 @@ import * as React from 'react';
 import { DiscoverOptions, TMDBMovie } from '../../Api/TMDB/TMDBMovie';
 import { QueryRenderer, QueryRendererComponentProps } from '../../Common/QueryRenderer/QueryRenderer';
 
+import { FilterMenuWithData } from '../FilterMenu/FilterMenu';
 import { RandomPageDetails } from './RandomPageDetails';
 import { RandomPageHeader } from './RandomPageHeader';
 import { RandomPageHero } from './RandomPageHero';
@@ -60,6 +61,9 @@ export class RandomPage extends React.Component<RandomPageProps, {}> {
     @observable
     public randomMovie: TMDBMovie | null = null;
 
+    @observable
+    public showFilters: boolean = false;
+
     public reroll = () => {
         this.randomMovie = randomInArray(this.props.data.movies);
         randomStore.setRerollCount(randomStore.rerollCount + 1);
@@ -78,7 +82,8 @@ export class RandomPage extends React.Component<RandomPageProps, {}> {
 
         return (
             <div className="random-page">
-                <RandomPageHeader onReroll={this.reroll} />
+                <RandomPageHeader onReroll={this.reroll} onToggleFilters={() => this.showFilters = !this.showFilters} />
+                {this.showFilters && <FilterMenuWithData />}
                 <RandomPageHero movie={movie} />
                 <RandomPageDetails movie={movie} />
             </div>
@@ -98,6 +103,7 @@ type QueryVariables = {
  * @class RandomPageWithData
  * @extends {React.Component<{}, {}>}
  */
+@observer
 export class RandomPageWithData extends React.Component<{}, {}> {
     /**
      * Performs queries to display the RandomPage

@@ -15,14 +15,16 @@ import { observer } from 'mobx-react';
 export interface RandomPageHeaderState { }
 export interface RandomPageHeaderProps {
     onReroll?: () => void;
+    onToggleFilters?: () => void;
 }
 
 @withRouter
 @observer
 export class RandomPageHeader extends React.Component<RandomPageHeaderProps, RandomPageHeaderState> {
     showFilterMenu = () => {
-        const router = this.props as any as RouteComponentProps<{}>;
-        router.history.push('/filters');
+        if (this.props.onToggleFilters) {
+            this.props.onToggleFilters();
+        }
     }
 
     showRandomMovie = () => {
@@ -55,7 +57,7 @@ export class RandomPageHeader extends React.Component<RandomPageHeaderProps, Ran
                             <Button plain onClick={onReroll}>Reroll</Button>
                         }
 
-                        <Button plain onClick={this.showRandomMovie}>Random</Button>
+                        {/* <Button plain onClick={this.showRandomMovie}>Random</Button> */}
                         <Button plain onClick={this.showFilterMenu}>Filters</Button>
 
                         {account &&
