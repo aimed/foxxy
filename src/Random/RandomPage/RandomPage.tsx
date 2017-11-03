@@ -92,7 +92,7 @@ export class RandomPage extends React.Component<RandomPageProps, {}> {
 }
 
 type QueryVariables = {
-    genres: TMDBGenre[];
+    genre: TMDBGenre | null;
     watchlist: boolean;
 };
 
@@ -114,6 +114,8 @@ export class RandomPageWithData extends React.Component<{}, {}> {
         // The users account if availiable.
         const { connection } = connectionStore;
         const account = await connectionStore.whenAccount();
+        
+        const genre = variables.genre;
 
         // Randomly select one year within the last x years.
         // From that year we'r randomly going to select a movie.
@@ -123,20 +125,18 @@ export class RandomPageWithData extends React.Component<{}, {}> {
             'vote_average.gte': 5
         };
 
-        if (variables.genres.length > 0) {
-            discoverOptions.with_genres = variables.genres.map(genre => genre.id).join(',');
+        if (genre) {
+            discoverOptions.with_genres = '' + genre.id;
         }
         
         // The movies to randomly select one from.
         const useWatchlist = account && variables.watchlist;
-        const filterGenres = variables.genres.length > 0;
         const moviesPage = account && useWatchlist
             ? await TMDBAccount.getWatchlist(connection, account)
             : await TMDBMovie.discover(connection, discoverOptions);
-        
-        const movies = useWatchlist && filterGenres
+        const movies = useWatchlist && genre
             // tslint:disable-next-line:max-line-length
-            ? moviesPage.entries.filter(movie => !!variables.genres.find(genre => !!movie.genreIds.find(gid => gid === genre.id)))
+            ? moviesPage.entries.filter(movie => movie.genreIds.find(gid => gid === genre.id))
             : moviesPage.entries;
         
         return {
@@ -145,8 +145,8 @@ export class RandomPageWithData extends React.Component<{}, {}> {
     }
 
     render() {
-        const { genres, watchlist } = filtersStore;
-        const variables: QueryVariables = { genres, watchlist };
+        const { genre, watchlist } = filtersStore;
+        const variables: QueryVariables = { genre, watchlist };
         return (
             <QueryRenderer
                 variables={variables}

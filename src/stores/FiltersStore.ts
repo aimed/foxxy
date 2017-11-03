@@ -3,7 +3,7 @@ import { observable } from 'mobx';
 
 export class FiltersStore {
     @observable
-    public genres: TMDBGenre[] = [];
+    public genre: TMDBGenre | null = null;
 
     @observable
     public watchlist: boolean = false;

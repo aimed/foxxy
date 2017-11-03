@@ -74,7 +74,7 @@ export class FilterMenu extends React.Component<FilterMenuProps, FilterMenuState
      * @memberof FilterMenu
      */
     @observable
-    private selectedGenres: TMDBGenre[] = [...filtersStore.genres];
+    private selectedGenre: TMDBGenre | null = filtersStore.genre;
 
     /**
      * Gets all genre ids in the watchlist.
@@ -94,7 +94,7 @@ export class FilterMenu extends React.Component<FilterMenuProps, FilterMenuState
      * 
      * @memberof FilterMenu
      */
-    isSelected = (genre: TMDBGenre) => !!this.selectedGenres.find(genreSelected => genreSelected.id === genre.id);
+    isSelected = (genre: TMDBGenre): boolean => !!this.selectedGenre && genre.id === this.selectedGenre.id;
 
     /**
      * Selects/Unselects the given genre.
@@ -102,11 +102,10 @@ export class FilterMenu extends React.Component<FilterMenuProps, FilterMenuState
      * @memberof FilterMenu
      */
     toggleGenre = (genre: TMDBGenre) => {
-        const selected = this.selectedGenres.indexOf(genre);
-        if (selected >= 0) {
-            this.selectedGenres.splice(selected, 1);
+        if (this.selectedGenre && this.selectedGenre.id === genre.id) {
+            this.selectedGenre = null;
         } else {
-            this.selectedGenres.push(genre);
+            this.selectedGenre = genre;
         }
     }
 
@@ -118,10 +117,10 @@ export class FilterMenu extends React.Component<FilterMenuProps, FilterMenuState
     applyFilters = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         filtersStore.watchlist = this.watchlistOnly;
-
-        filtersStore.genres = this.watchlistOnly
-            ? this.selectedGenres.filter(genre => this.watchlistGenreIds.find(id => id === genre.id))
-            : this.selectedGenres;
+        
+        const selectedGenre = this.selectedGenre;
+        const watchlistContainsGenre = selectedGenre && this.watchlistGenreIds.find(id => id === selectedGenre.id);
+        filtersStore.genre = this.watchlistOnly && !watchlistContainsGenre ? null : this.selectedGenre;
     }
 
     /**
@@ -155,8 +154,8 @@ export class FilterMenu extends React.Component<FilterMenuProps, FilterMenuState
                 <fieldset>
                     <FilterGenreItem
                         genre={allGenres}
-                        isSelected={this.selectedGenres.length === 0}
-                        toggle={() => this.selectedGenres = []}
+                        isSelected={this.selectedGenre === null}
+                        toggle={() => this.selectedGenre = null}
                     />
                     {availiableGenres.map(genre =>
                         <FilterGenreItem
