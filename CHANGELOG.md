@@ -1,3 +1,17 @@
+<a name="1.4.3"></a>
+## [1.4.3](https://github.com/aimed/foxxy/compare/v1.4.2...v1.4.3) (2017-11-03)
+
+
+### Bug Fixes
+
+* **filters:** makes filters part of the random page again ([46ed67a](https://github.com/aimed/foxxy/commit/46ed67a))
+* **filters:** only allow to select a single genre ([e7d5762](https://github.com/aimed/foxxy/commit/e7d5762))
+* **filters:** replaces custom genre selector with default select ([9c8d78a](https://github.com/aimed/foxxy/commit/9c8d78a))
+* **RandomPage:** automatically rerolls when filters update ([c54fe91](https://github.com/aimed/foxxy/commit/c54fe91))
+* **spinner:** container has min height to always fit the spinner ([7d3c301](https://github.com/aimed/foxxy/commit/7d3c301))
+
+
+
 <a name="1.4.2"></a>
 ## [1.4.2](https://github.com/aimed/foxxy/compare/v1.4.1...v1.4.2) (2017-11-02)
 
