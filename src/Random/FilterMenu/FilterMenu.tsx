@@ -4,6 +4,7 @@ import * as React from 'react';
 
 import { Button } from '../../Common/Button/Button';
 import { QueryRenderer } from '../../Common/QueryRenderer/QueryRenderer';
+import { Spinner } from '../../Common/Spinner/Spinner';
 import { TMDBAccount } from '../../Api/TMDB/TMDBAccount';
 import { TMDBGenre } from '../../Api/TMDB/TMDBGenre';
 import { TMDBMovie } from '../../Api/TMDB/TMDBMovie';
@@ -12,25 +13,6 @@ import { connectionStore } from '../../stores/ConnectionStore';
 import { filtersStore } from '../../stores/FiltersStore';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
-
-interface FilterGenreItemProps {
-    genre: TMDBGenre;
-    toggle: (genre: TMDBGenre) => void;
-    isSelected: boolean;
-}
-
-const FilterGenreItem = (props: FilterGenreItemProps) => {
-    const { genre, toggle, isSelected } = props;
-
-    const classNames = [
-        'filter-genre__item',
-        isSelected && '-selected'
-    ].filter(n => !!n);
-
-    return (
-        <p className={classNames.join(' ')} onClick={() => toggle(genre)}>{genre.name}</p>
-    );
-};
 
 /**
  * A genre that indicates that all genres have been selected.
@@ -70,11 +52,11 @@ export class FilterMenu extends React.Component<FilterMenuProps, FilterMenuState
      * List of selected genres.
      * 
      * @private
-     * @type {TMDBGenre[]}
+     * @type {number | null}
      * @memberof FilterMenu
      */
     @observable
-    private selectedGenre: TMDBGenre | null = filtersStore.genre;
+    private selectedGenre: number | null = filtersStore.genre && filtersStore.genre.id;
 
     /**
      * Gets all genre ids in the watchlist.
@@ -90,22 +72,33 @@ export class FilterMenu extends React.Component<FilterMenuProps, FilterMenuState
     }
 
     /**
+     * 
+     * 
+     * @readonly
+     * @private
+     * @memberof FilterMenu
+     */
+    private get selectedGenreField() {
+        return this.selectedGenre ? this.selectedGenre + '' : '-1';
+    }
+
+    /**
      * Determines if the genre has been selected by the user.
      * 
      * @memberof FilterMenu
      */
-    isSelected = (genre: TMDBGenre): boolean => !!this.selectedGenre && genre.id === this.selectedGenre.id;
+    isSelected = (genre: TMDBGenre): boolean => !!this.selectedGenre && genre.id === this.selectedGenre;
 
     /**
      * Selects/Unselects the given genre.
      * 
      * @memberof FilterMenu
      */
-    toggleGenre = (genre: TMDBGenre) => {
-        if (this.selectedGenre && this.selectedGenre.id === genre.id) {
+    toggleGenre = (genreId: number) => {
+        if (this.selectedGenre && this.selectedGenre === genreId || genreId === allGenres.id) {
             this.selectedGenre = null;
         } else {
-            this.selectedGenre = genre;
+            this.selectedGenre = genreId;
         }
     }
 
@@ -119,8 +112,9 @@ export class FilterMenu extends React.Component<FilterMenuProps, FilterMenuState
         filtersStore.watchlist = this.watchlistOnly;
         
         const selectedGenre = this.selectedGenre;
-        const watchlistContainsGenre = selectedGenre && this.watchlistGenreIds.find(id => id === selectedGenre.id);
-        filtersStore.genre = this.watchlistOnly && !watchlistContainsGenre ? null : this.selectedGenre;
+        const watchlistContainsGenre = selectedGenre && this.watchlistGenreIds.find(id => id === selectedGenre);
+        const genre = selectedGenre ? this.props.data.genres.find(g => g.id === selectedGenre) || null : null;
+        filtersStore.genre = this.watchlistOnly && !watchlistContainsGenre ? null : genre;
     }
 
     /**
@@ -133,14 +127,11 @@ export class FilterMenu extends React.Component<FilterMenuProps, FilterMenuState
         const { data: { account, genres, watchlist } } = this.props;
 
         const availiableGenres = account && this.watchlistOnly
-            ? genres.filter(genre => this.watchlistGenreIds.find(id => id === genre.id))
-            : genres;
+            ? [allGenres, ...genres.filter(genre => this.watchlistGenreIds.find(id => id === genre.id))]
+            : [allGenres, ...genres];
 
         return (
             <form className="filter-menu" onSubmit={this.applyFilters}>
-                <fieldset>
-                    <Button type="submit">Apply</Button>
-                </fieldset>
                 {account && watchlist && watchlist.entries.length > 0 &&
                     <fieldset>
                         <input
@@ -152,19 +143,17 @@ export class FilterMenu extends React.Component<FilterMenuProps, FilterMenuState
                         </fieldset>
                 }
                 <fieldset>
-                    <FilterGenreItem
-                        genre={allGenres}
-                        isSelected={this.selectedGenre === null}
-                        toggle={() => this.selectedGenre = null}
-                    />
-                    {availiableGenres.map(genre =>
-                        <FilterGenreItem
-                            key={genre.id}
-                            genre={genre}
-                            isSelected={this.isSelected(genre)}
-                            toggle={this.toggleGenre}
-                        />
-                    )}
+                    <select 
+                        onChange={e => this.toggleGenre(parseInt(e.currentTarget.value, 10))} 
+                        value={this.selectedGenreField}
+                    >
+                        {availiableGenres.map(genre => 
+                            <option key={genre.id} value={genre.id}>{genre.name}</option>
+                        )}
+                    </select>
+                </fieldset>
+                <fieldset>
+                    <Button type="submit" plain>Apply</Button>
                 </fieldset>
             </form>
         );
@@ -202,6 +191,7 @@ export class FilterMenuWithData extends React.Component<{}, {}> {
 
         return (
             <QueryRenderer
+                loading={() => <div className="spinner-container"><Spinner /></div>}
                 variables={variables}
                 query={this.query}
                 component={FilterMenu}
