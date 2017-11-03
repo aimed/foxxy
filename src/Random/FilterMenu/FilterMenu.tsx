@@ -2,6 +2,8 @@ import './FilterMenu.css';
 
 import * as React from 'react';
 
+import { action, observable } from 'mobx';
+
 import { Button } from '../../Common/Button/Button';
 import { QueryRenderer } from '../../Common/QueryRenderer/QueryRenderer';
 import { Spinner } from '../../Common/Spinner/Spinner';
@@ -11,7 +13,6 @@ import { TMDBMovie } from '../../Api/TMDB/TMDBMovie';
 import { TMDBPage } from '../../Api/TMDB/TMDBPage';
 import { connectionStore } from '../../stores/ConnectionStore';
 import { filtersStore } from '../../stores/FiltersStore';
-import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 
 /**
@@ -107,6 +108,7 @@ export class FilterMenu extends React.Component<FilterMenuProps, FilterMenuState
      * 
      * @memberof FilterMenu
      */
+    @action
     applyFilters = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         filtersStore.watchlist = this.watchlistOnly;
