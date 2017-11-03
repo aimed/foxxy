@@ -73,6 +73,12 @@ export class RandomPage extends React.Component<RandomPageProps, {}> {
         this.reroll();
     }
 
+    public componentWillReceiveProps(next: RandomPageProps) {
+        if (this.props.data.movies !== next.data.movies) {
+            this.reroll();
+        }
+    }
+
     public render() {
         const movie = this.randomMovie;
 
