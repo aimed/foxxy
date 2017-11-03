@@ -1,5 +1,7 @@
 .spinner-container {
     position: relative;
+    min-height: 3em;
+    min-width: 3em;
 }
 
 .spinner {
