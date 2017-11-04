@@ -157,7 +157,7 @@ export class FilterMenu extends React.Component<FilterMenuProps, FilterMenuState
                     </Select>
                 </fieldset>
                 <fieldset>
-                    <Button type="submit" primary>Apply</Button>
+                    <Button type="submit" primary dense>Apply</Button>
                 </fieldset>
             </form>
         );
