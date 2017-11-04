@@ -1,7 +1,5 @@
 import * as React from 'react';
 
-import { RouteComponentProps, withRouter } from 'react-router';
-
 import { Button } from '../../Common/Button/Button';
 import { Gravatar } from '../../User/Gravatar/Gravatar';
 import { IconExpandMore } from '../../Common/Icons/IconExpandMore';
@@ -11,6 +9,7 @@ import { PopoverMenu } from '../../Common/Menu/PopoverMenu';
 import { TMDBAuthentication } from '../../Api/TMDB/TMDBAuthentication';
 import { connectionStore } from '../../stores/ConnectionStore';
 import { observer } from 'mobx-react';
+import { withRouter } from 'react-router';
 
 export interface RandomPageHeaderState { }
 export interface RandomPageHeaderProps {
@@ -25,11 +24,6 @@ export class RandomPageHeader extends React.Component<RandomPageHeaderProps, Ran
         if (this.props.onToggleFilters) {
             this.props.onToggleFilters();
         }
-    }
-
-    showRandomMovie = () => {
-        const router = this.props as any as RouteComponentProps<{}>;
-        router.history.push('/');        
     }
 
     signIn = () => {
@@ -54,11 +48,10 @@ export class RandomPageHeader extends React.Component<RandomPageHeaderProps, Ran
                 right={
                     <Menu direction="horizontal">
                         {onReroll && 
-                            <Button plain onClick={onReroll}>Reroll</Button>
+                            <Button onClick={onReroll}>Reroll</Button>
                         }
 
-                        {/* <Button plain onClick={this.showRandomMovie}>Random</Button> */}
-                        <Button plain onClick={this.showFilterMenu}>Filters</Button>
+                        <Button onClick={this.showFilterMenu}>Filters</Button>
 
                         {account &&
                             <span style={{display: 'flex', alignItems: 'center', marginRight: '-0.5em'}}>
@@ -68,15 +61,15 @@ export class RandomPageHeader extends React.Component<RandomPageHeaderProps, Ran
                         {account &&
                             <PopoverMenu
                                 label={
-                                    <Button plain><IconExpandMore /></Button>
+                                    <Button><IconExpandMore /></Button>
                                 }
                             >
-                                <Button plain onClick={this.signOut}>Sign out</Button>
+                                <Button onClick={this.signOut}>Sign out</Button>
                             </PopoverMenu>
                         }
                         
                         {!account && !session &&
-                            <Button plain onClick={this.signIn}>Connect to TMDb</Button>
+                            <Button onClick={this.signIn}>Connect to TMDb</Button>
                         }
                     </Menu>
                 }

@@ -2,12 +2,14 @@ import './Button.css';
 
 import * as React from 'react';
 
+import { classnames } from '../../utils/classnames';
+
 // Sound provided by http://facebook.design/soundkit
 const soundFile = require('./sound.m4a');
 
 interface ButtonProps extends 
     React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
-        plain?: boolean;
+        primary?: boolean;
         sound?: boolean;
 }
 
@@ -15,7 +17,7 @@ export class Button extends React.Component<ButtonProps, {}> {
     private static audio = new Audio(soundFile);
 
     public render() {
-        const { className, onClick, plain, sound, ...props } = this.props;
+        const { className, onClick, primary, sound, ...props } = this.props;
         
         const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
             if (sound) {
@@ -27,14 +29,15 @@ export class Button extends React.Component<ButtonProps, {}> {
             }
         };
 
-        const classNames = [
-            'btn',
-            plain && '-plain'
-        ].filter(n => !!n);
-
+        const classNames = classnames([
+            className,
+            'mdc-button',
+            primary && 'mdc-theme--primary-bg mdc-theme--text-primary-on-primary'
+        ]);
+        
         return (
             <button 
-                className={classNames.join(' ')}
+                className={classNames}
                 onClick={handleClick} 
                 {...props} 
             />

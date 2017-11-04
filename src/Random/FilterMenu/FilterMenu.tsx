@@ -5,7 +5,9 @@ import * as React from 'react';
 import { action, observable } from 'mobx';
 
 import { Button } from '../../Common/Button/Button';
+import { Checkbox } from '../../Common/Checkbox/Checkbox';
 import { QueryRenderer } from '../../Common/QueryRenderer/QueryRenderer';
+import { Select } from '../../Common/Select/Select';
 import { Spinner } from '../../Common/Spinner/Spinner';
 import { TMDBAccount } from '../../Api/TMDB/TMDBAccount';
 import { TMDBGenre } from '../../Api/TMDB/TMDBGenre';
@@ -136,26 +138,26 @@ export class FilterMenu extends React.Component<FilterMenuProps, FilterMenuState
             <form className="filter-menu" onSubmit={this.applyFilters}>
                 {account && watchlist && watchlist.entries.length > 0 &&
                     <fieldset>
-                        <input
+                        <Checkbox
                             type="checkbox"
                             checked={this.watchlistOnly}
                             onChange={e => this.watchlistOnly = e.currentTarget.checked}
+                            label="Watchlist only"
                         />
-                        Only from my watchlist
-                        </fieldset>
+                    </fieldset>
                 }
                 <fieldset>
-                    <select 
+                    <Select 
                         onChange={e => this.toggleGenre(parseInt(e.currentTarget.value, 10))} 
                         value={this.selectedGenreField}
                     >
                         {availiableGenres.map(genre => 
                             <option key={genre.id} value={genre.id}>{genre.name}</option>
                         )}
-                    </select>
+                    </Select>
                 </fieldset>
                 <fieldset>
-                    <Button type="submit" plain>Apply</Button>
+                    <Button type="submit" primary>Apply</Button>
                 </fieldset>
             </form>
         );

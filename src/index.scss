@@ -1,0 +1,12 @@
+$mdc-theme-primary: #424242;
+$mdc-theme-secondary: #ffab40;
+$mdc-theme-background: #fff;
+
+@import "@material/theme/mdc-theme";
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background: #F7F7F7;
+}
