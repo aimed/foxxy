@@ -1,3 +1,23 @@
+<a name="1.5.0"></a>
+# [1.5.0](https://github.com/aimed/foxxy/compare/v1.4.3...v1.5.0) (2017-11-04)
+
+
+### Bug Fixes
+
+* **classnames:** accepts boolean expressions in array ([9e2e32c](https://github.com/aimed/foxxy/commit/9e2e32c))
+* **FilterMenu:** adjust button style and makes it dense ([75422a6](https://github.com/aimed/foxxy/commit/75422a6))
+* **FilterMenu:** marks applyFilters as action ([d981bd0](https://github.com/aimed/foxxy/commit/d981bd0))
+* **PopoverMenu:** makes the border slightly transparent ([ae6c8e8](https://github.com/aimed/foxxy/commit/ae6c8e8))
+
+
+### Features
+
+* **Button:** adds material options to button ([80725d2](https://github.com/aimed/foxxy/commit/80725d2))
+* **classnames:** adds classnames utility to construct classNames ([a8e7dc0](https://github.com/aimed/foxxy/commit/a8e7dc0))
+* **Design:** moves to material-components for most components ([d71bd63](https://github.com/aimed/foxxy/commit/d71bd63))
+
+
+
 <a name="1.4.3"></a>
 ## [1.4.3](https://github.com/aimed/foxxy/compare/v1.4.2...v1.4.3) (2017-11-03)
 
