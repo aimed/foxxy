@@ -7,7 +7,7 @@ export const classnames = (classes: ArrayClassname | ObjectClassname): string =>
     }
 
     if (classes instanceof Object) {
-        Object.keys(classes).filter(k => classes[k]).join(' ');
+        return Object.keys(classes).filter(k => classes[k]).join(' ');
     }
     
     return '';
