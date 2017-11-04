@@ -3,9 +3,10 @@ import * as React from 'react';
 import { Button } from '../../Common/Button/Button';
 import { Gravatar } from '../../User/Gravatar/Gravatar';
 import { IconExpandMore } from '../../Common/Icons/IconExpandMore';
+import { MaterialMenu } from '../../Common/Menu/MaterialMenu';
+import { MaterialMenuItem } from '../../Common/Menu/MaterialMenuItem';
 import { Menu } from '../../Common/Menu/Menu';
 import { Navbar } from '../../Common/Navbar/Navbar';
-import { PopoverMenu } from '../../Common/Menu/PopoverMenu';
 import { TMDBAuthentication } from '../../Api/TMDB/TMDBAuthentication';
 import { connectionStore } from '../../stores/ConnectionStore';
 import { observer } from 'mobx-react';
@@ -54,18 +55,18 @@ export class RandomPageHeader extends React.Component<RandomPageHeaderProps, Ran
                         <Button onClick={this.showFilterMenu}>Filters</Button>
 
                         {account &&
-                            <span style={{display: 'flex', alignItems: 'center', marginRight: '-0.5em'}}>
+                            <span style={{display: 'flex', alignItems: 'center'}}>
                                 <Gravatar account={account} size={24} style={{ borderRadius: '50%' }} />
                             </span>
                         }
                         {account &&
-                            <PopoverMenu
+                            <MaterialMenu
                                 label={
                                     <Button><IconExpandMore /></Button>
                                 }
                             >
-                                <Button onClick={this.signOut}>Sign out</Button>
-                            </PopoverMenu>
+                                <MaterialMenuItem onClick={this.signOut}>Sign out</MaterialMenuItem>
+                            </MaterialMenu>
                         }
                         
                         {!account && !session &&
