@@ -1,4 +1,4 @@
-type ArrayClassname = [string | null | undefined];
+type ArrayClassname = [string | null | undefined | boolean];
 type ObjectClassname = {[index: string]: boolean | null | undefined};
 
 export const classnames = (classes: ArrayClassname | ObjectClassname): string => {
