@@ -70,7 +70,7 @@ export class RandomPageHeader extends React.Component<RandomPageHeaderProps, Ran
                         }
                         
                         {!account && !session &&
-                            <Button onClick={this.signIn}>Connect to TMDb</Button>
+                            <Button onClick={this.signIn}>TMDb Connect</Button>
                         }
                     </Menu>
                 }
