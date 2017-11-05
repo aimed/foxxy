@@ -1,3 +1,21 @@
+<a name="1.6.0"></a>
+# [1.6.0](https://github.com/aimed/foxxy/compare/v1.5.0...v1.6.0) (2017-11-05)
+
+
+### Bug Fixes
+
+* **ClassNames:** fixes bug with class on objects ([4f0a604](https://github.com/aimed/foxxy/commit/4f0a604))
+* **RandomPage:** fixes header overflow on narrow screens ([a2b33d5](https://github.com/aimed/foxxy/commit/a2b33d5))
+* **scss:** removes all css files ([4f16ac6](https://github.com/aimed/foxxy/commit/4f16ac6))
+
+
+### Features
+
+* **Menu:** adds MaterialMenu ([f845b0e](https://github.com/aimed/foxxy/commit/f845b0e))
+* **Menu:** adds MaterialMenuItem ([998984f](https://github.com/aimed/foxxy/commit/998984f))
+
+
+
 <a name="1.5.0"></a>
 # [1.5.0](https://github.com/aimed/foxxy/compare/v1.4.3...v1.5.0) (2017-11-04)
 
