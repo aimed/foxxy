@@ -1,3 +1,20 @@
+<a name="1.7.0"></a>
+# [1.7.0](https://github.com/aimed/foxxy/compare/v1.6.0...v1.7.0) (2017-11-07)
+
+
+### Bug Fixes
+
+* **TMDBConnection:** remove undefined and null values from queries ([7f40a24](https://github.com/aimed/foxxy/commit/7f40a24))
+
+
+### Features
+
+* **Localization:** adds lanuage parameters to relevant api calls ([cb9cc3b](https://github.com/aimed/foxxy/commit/cb9cc3b))
+* **Localization:** adds localization to watchlist ([343aba9](https://github.com/aimed/foxxy/commit/343aba9))
+* **Localization:** the RandomPage and the GenreList apply locales ([f497492](https://github.com/aimed/foxxy/commit/f497492)), closes [#5](https://github.com/aimed/foxxy/issues/5)
+
+
+
 <a name="1.6.0"></a>
 # [1.6.0](https://github.com/aimed/foxxy/compare/v1.5.0...v1.6.0) (2017-11-05)
 
