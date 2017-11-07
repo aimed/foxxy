@@ -98,6 +98,7 @@ export class RandomPage extends React.Component<RandomPageProps, {}> {
 }
 
 type QueryVariables = {
+    language: string;
     genre: TMDBGenre | null;
     watchlist: boolean;
 };
@@ -121,7 +122,7 @@ export class RandomPageWithData extends React.Component<{}, {}> {
         const { connection } = connectionStore;
         const account = await connectionStore.whenAccount();
         
-        const genre = variables.genre;
+        const { genre, language } = variables;
 
         // Randomly select one year within the last x years.
         // From that year we'r randomly going to select a movie.
@@ -138,8 +139,8 @@ export class RandomPageWithData extends React.Component<{}, {}> {
         // The movies to randomly select one from.
         const useWatchlist = account && variables.watchlist;
         const moviesPage = account && useWatchlist
-            ? await TMDBAccount.getWatchlist(connection, account)
-            : await TMDBMovie.discover(connection, discoverOptions);
+            ? await TMDBAccount.getWatchlist(connection, account, 1, language)
+            : await TMDBMovie.discover(connection, discoverOptions, language);
         const movies = useWatchlist && genre
             // tslint:disable-next-line:max-line-length
             ? moviesPage.entries.filter(movie => movie.genreIds.find(gid => gid === genre.id))
@@ -151,8 +152,9 @@ export class RandomPageWithData extends React.Component<{}, {}> {
     }
 
     render() {
+        const { language } = connectionStore;
         const { genre, watchlist } = filtersStore;
-        const variables: QueryVariables = { genre, watchlist };
+        const variables: QueryVariables = { genre, watchlist, language };
         return (
             <QueryRenderer
                 variables={variables}

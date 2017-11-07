@@ -6,6 +6,7 @@ import { QueryRenderer, QueryRendererComponentProps } from '../../Common/QueryRe
 
 import { TMDBGenre } from '../../Api/TMDB/TMDBGenre';
 import { connectionStore } from '../../stores/ConnectionStore';
+import { observer } from 'mobx-react';
 
 export type GenreQuery = { [index: number]: TMDBGenre };
 
@@ -31,27 +32,34 @@ export class GenreList extends React.Component<GenreListProps, GenreListState> {
     }
 }
 
+type QueryVariables = {
+    language: string
+};
+
 export interface GenreListWithDataState { }
 export interface GenreListWithDataProps { 
     genreIds: number[];
 }
 
+@observer
 export class GenreListWithData extends React.Component<GenreListWithDataProps, GenreListWithDataState> {
-    query = async () => {
+    query = async (variables: QueryVariables) => {
         const genres: { [index: number]: TMDBGenre } = {};
-        const genreList = await TMDBGenre.getGenres(connectionStore.connection);
+        const genreList = await TMDBGenre.getGenres(connectionStore.connection, variables.language);
 
         for (const genre of genreList) {
             genres[genre.id] = genre;
         }
-                
         return genres;
     }
 
     render() {
+        const language = connectionStore.language;
+        const variables: QueryVariables = { language };
         const R = (p: QueryRendererComponentProps<GenreQuery>) => <GenreList {...p} genreIds={this.props.genreIds} />;
         return (
             <QueryRenderer
+                variables={variables}
                 loading={() => null}
                 query={this.query}
                 component={R}

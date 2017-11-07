@@ -19,6 +19,11 @@ export class ConnectionStore {
     @observable
     private _session: TMDBSession | null = null;
 
+    @observable
+    public language: string = navigator.languages && navigator.languages.length 
+        ? navigator.languages[0] 
+        : navigator.language;
+
     @computed
     public get session() {
         return this._session;
