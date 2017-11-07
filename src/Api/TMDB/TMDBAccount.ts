@@ -104,11 +104,13 @@ export class TMDBAccount {
     public static getWatchlist(
         con: TMDBConnection, 
         account: TMDBAccount, 
-        page: number = 1): Promise<TMDBPage<TMDBMovie>> {
+        page: number = 1,
+        language?: string
+    ): Promise<TMDBPage<TMDBMovie>> {
         return con.getRequest(
             TMDBPage.fromJSON(TMDBMovie.fromJSON), 
             `/account/${account.id}/watchlist/movies`, 
-            { page }
+            { page, language }
         );
     }
 
