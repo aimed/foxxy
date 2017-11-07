@@ -3,6 +3,13 @@ import * as querystring from 'querystring';
 import { TMDBSession } from './TMDBSession';
 
 /**
+ * Takes an object and removes all keys whose values are null or undefined.
+ * @param obj The object
+ */
+// tslint:disable-next-line:max-line-length
+const removeUndefinedValues = (obj: Object): Object => Object.keys(obj).reduce((p, c) => obj[c] !== null && obj[c] !== undefined ? {[c]: obj[c], ...p} : p, {});
+
+/**
  * Connection used in requests to the tmdb api.
  * 
  * @export
@@ -118,7 +125,7 @@ export class TMDBConnection {
             api_key: this._apiKey, 
             session_id: this._session ? this._session.sessionId : undefined 
         };
-        const queryString = querystring.stringify(queryData);
+        const queryString = querystring.stringify(removeUndefinedValues(queryData));
         const url = `${this._baseUrl}${endpoint}?${queryString}`;
 
         // Check the cache if a response for this exists,
@@ -155,7 +162,7 @@ export class TMDBConnection {
             api_key: this._apiKey, 
             session_id: this._session ? this._session.sessionId : undefined 
         };
-        const queryString = querystring.stringify(queryData);
+        const queryString = querystring.stringify(removeUndefinedValues(queryData));
         const url = `${this._baseUrl}${endpoint}?${queryString}`;
         const response = await window.fetch(url, { 
             method: 'POST', 
