@@ -41,8 +41,9 @@ export class TMDBMovie {
         return movie;
     }
 
-    public static discover(con: TMDBConnection, query: DiscoverOptions): Promise<TMDBPage<TMDBMovie>> {
-        return con.getRequest(TMDBPage.fromJSON(TMDBMovie.fromJSON), '/discover/movie', query);
+    // tslint:disable-next-line:max-line-length
+    public static discover(con: TMDBConnection, query: DiscoverOptions, language?: string): Promise<TMDBPage<TMDBMovie>> {
+        return con.getRequest(TMDBPage.fromJSON(TMDBMovie.fromJSON), '/discover/movie', { ...query, language });
     }
 
     private constructor() { }

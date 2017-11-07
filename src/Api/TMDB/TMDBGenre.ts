@@ -8,8 +8,8 @@ export class TMDBGenre {
         return new TMDBGenre(data.id, data.name);
     }
 
-    public static async getGenres(con: TMDBConnection): Promise<TMDBGenre[]> {
-        return await con.getRequest(TMDBGenre.fromResponse, `/genre/movie/list`);
+    public static async getGenres(con: TMDBConnection, language?: string): Promise<TMDBGenre[]> {
+        return await con.getRequest(TMDBGenre.fromResponse, `/genre/movie/list`, { language });
     }
 
     private static fromResponse(data: any): TMDBGenre[] {
