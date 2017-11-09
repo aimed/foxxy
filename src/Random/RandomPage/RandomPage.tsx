@@ -147,7 +147,7 @@ export class RandomPageWithData extends React.Component<{}, {}> {
 
         // Pick a random movie from the last 20 years.
         // Assume that at least 20 pages exist.
-        const page = randomInt(20);
+        const page = randomInt(genre ? 8 : 20);
         const twentyYearsAgo = new Date();
         twentyYearsAgo.setFullYear(new Date().getFullYear() - 20);
 
