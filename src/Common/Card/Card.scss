@@ -1,1 +1,20 @@
 @import "@material/card/mdc-card";
+
+.mdc-card {
+    &--avatar {
+        position: relative;
+
+        .mdc-card__title,
+        .mdc-card__subtitle {
+            margin-left: 58px;
+        }
+    }
+
+    &__avatar {
+        position: absolute;
+        height: 40px;
+        width: 40px;
+        overflow: hidden;
+        border-radius: 50%;
+    }
+}
