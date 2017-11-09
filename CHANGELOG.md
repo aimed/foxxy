@@ -1,3 +1,13 @@
+<a name="1.10.0"></a>
+# [1.10.0](https://github.com/aimed/foxxy/compare/v1.9.0...v1.10.0) (2017-11-09)
+
+
+### Features
+
+* improves all things random ([557664f](https://github.com/aimed/foxxy/commit/557664f)), closes [#3](https://github.com/aimed/foxxy/issues/3) [#4](https://github.com/aimed/foxxy/issues/4) [#6](https://github.com/aimed/foxxy/issues/6)
+
+
+
 <a name="1.9.0"></a>
 # [1.9.0](https://github.com/aimed/foxxy/compare/v1.8.0...v1.9.0) (2017-11-09)
 
