@@ -1,4 +1,5 @@
 import { TMDBConnection } from './TMDBConnection';
+import { TMDBDate } from './TMDBDate';
 import { TMDBPage } from './TMDBPage';
 
 type DiscoverSortOptions =
@@ -14,8 +15,10 @@ type DiscoverSortOptions =
 export type DiscoverOptions = {
     'sort_by'?: DiscoverSortOptions;
     'primary_release_year'?: number;
+    'primary_release_date.gte'?: TMDBDate;
     'vote_average.gte'?: number;
     'with_genres'?: string;
+    'page'?: number;
 };
 
 export class TMDBMovie {
