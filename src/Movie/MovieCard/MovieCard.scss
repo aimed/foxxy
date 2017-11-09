@@ -5,4 +5,11 @@
     &:last-of-type {
         margin-bottom: 0;
     }
+
+    .mdc-card__avatar > img {
+        position: absolute;
+        width: 100%;
+        height: auto;
+        margin-top: -50%;
+    }
 }
