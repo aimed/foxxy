@@ -19,6 +19,15 @@
     "@material/theme" "^0.24.0"
     "@material/typography" "^0.3.0"
 
+"@material/card@^0.24.0":
+  version "0.24.0"
+  resolved "https://registry.yarnpkg.com/@material/card/-/card-0.24.0.tgz#c11bea0999e11e8abba939600c05f97195195530"
+  dependencies:
+    "@material/elevation" "^0.1.13"
+    "@material/rtl" "^0.1.8"
+    "@material/theme" "^0.24.0"
+    "@material/typography" "^0.3.0"
+
 "@material/elevation@^0.1.13":
   version "0.1.13"
   resolved "https://registry.yarnpkg.com/@material/elevation/-/elevation-0.1.13.tgz#a38885f3caf4398ca6a7468c308887d70bd4605b"
