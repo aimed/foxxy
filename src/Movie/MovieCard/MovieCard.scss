@@ -1,0 +1,8 @@
+.movie-card {
+    background-color: #ffffff;
+    margin-bottom: 0.5em;
+    
+    &:last-of-type {
+        margin-bottom: 0;
+    }
+}
