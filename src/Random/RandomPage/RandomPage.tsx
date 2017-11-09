@@ -6,6 +6,7 @@ import { DiscoverOptions, TMDBMovie } from '../../Api/TMDB/TMDBMovie';
 import { QueryRenderer, QueryRendererComponentProps } from '../../Common/QueryRenderer/QueryRenderer';
 
 import { FilterMenuWithData } from '../FilterMenu/FilterMenu';
+import { MakeTMDBDate } from '../../Api/TMDB/TMDBDate';
 import { RandomPageDetails } from './RandomPageDetails';
 import { RandomPageHeader } from './RandomPageHeader';
 import { RandomPageHero } from './RandomPageHero';
@@ -19,6 +20,16 @@ import { observer } from 'mobx-react';
 import { randomStore } from '../../stores/RandomStore';
 
 /**
+ * Create a random number between 0 and max.
+ * 
+ * @param {number} max 
+ * @returns {number} 
+ */
+function randomInt(max: number): number {
+    return Math.floor(Math.random() * (max + 1));
+}
+
+/**
  * Utility function to randomly select an element in an array.
  * 
  * @template T 
@@ -30,7 +41,7 @@ function randomInArray<T>(items: T[]): T | null {
         return null;
     }
     const max = items.length - 1;
-    const rnd = Math.floor(Math.random() * (max + 1));
+    const rnd = randomInt(max);
     return items[rnd];
 }
 
@@ -134,12 +145,16 @@ export class RandomPageWithData extends React.Component<{}, {}> {
         
         const { genre, language } = variables;
 
-        // Randomly select one year within the last x years.
-        // From that year we'r randomly going to select a movie.
-        const lastYears = Array(20).fill(new Date().getFullYear()).map((y, i) => y - i);
+        // Pick a random movie from the last 20 years.
+        // Assume that at least 20 pages exist.
+        const page = randomInt(20);
+        const twentyYearsAgo = new Date();
+        twentyYearsAgo.setFullYear(new Date().getFullYear() - 20);
+
         const discoverOptions: DiscoverOptions = {
-            'primary_release_year': randomInArray(lastYears) as number,
-            'vote_average.gte': 5
+            'primary_release_date.gte': MakeTMDBDate(twentyYearsAgo),
+            'vote_average.gte': 5,
+            'page': page
         };
 
         if (genre) {
