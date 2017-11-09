@@ -1,3 +1,17 @@
+<a name="1.8.0"></a>
+# [1.8.0](https://github.com/aimed/foxxy/compare/v1.7.0...v1.8.0) (2017-11-09)
+
+
+### Features
+
+* **Card:** adds avatars ([babf23a](https://github.com/aimed/foxxy/commit/babf23a))
+* **Components:** adds a special MovieCard to display movies ([1c8a930](https://github.com/aimed/foxxy/commit/1c8a930))
+* **Components:** adds Card component ([68b1aeb](https://github.com/aimed/foxxy/commit/68b1aeb))
+* **MovieCard:** adds movie image ([a9db4c2](https://github.com/aimed/foxxy/commit/a9db4c2))
+* **RandomPage:** adds a roll history ([bcb99e0](https://github.com/aimed/foxxy/commit/bcb99e0)), closes [#7](https://github.com/aimed/foxxy/issues/7)
+
+
+
 <a name="1.7.0"></a>
 # [1.7.0](https://github.com/aimed/foxxy/compare/v1.6.0...v1.7.0) (2017-11-07)
 
