@@ -119,6 +119,7 @@ export class FilterMenu extends React.Component<FilterMenuProps, FilterMenuState
         const watchlistContainsGenre = selectedGenre && this.watchlistGenreIds.find(id => id === selectedGenre);
         const genre = selectedGenre ? this.props.data.genres.find(g => g.id === selectedGenre) || null : null;
         filtersStore.genre = this.watchlistOnly && !watchlistContainsGenre ? null : genre;
+        filtersStore.rerollTry = filtersStore.rerollTry + 1;
     }
 
     /**

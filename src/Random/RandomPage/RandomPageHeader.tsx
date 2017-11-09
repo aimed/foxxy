@@ -9,6 +9,7 @@ import { Menu } from '../../Common/Menu/Menu';
 import { Navbar } from '../../Common/Navbar/Navbar';
 import { TMDBAuthentication } from '../../Api/TMDB/TMDBAuthentication';
 import { connectionStore } from '../../stores/ConnectionStore';
+import { filtersStore } from '../../stores/FiltersStore';
 import { observer } from 'mobx-react';
 import { withRouter } from 'react-router';
 
@@ -41,7 +42,7 @@ export class RandomPageHeader extends React.Component<RandomPageHeaderProps, Ran
 
     render() {
         const { account, session } = connectionStore;
-        const { onReroll } = this.props;
+        const { onReroll = () => filtersStore.rerollTry = filtersStore.rerollTry + 1 } = this.props;
 
         return (
             <Navbar
