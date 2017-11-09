@@ -1,3 +1,19 @@
+<a name="1.9.0"></a>
+# [1.9.0](https://github.com/aimed/foxxy/compare/v1.8.0...v1.9.0) (2017-11-09)
+
+
+### Bug Fixes
+
+* **RandomPage:** queries less pages when genre is selected ([9361efb](https://github.com/aimed/foxxy/commit/9361efb)), closes [#9](https://github.com/aimed/foxxy/issues/9)
+* **RandomPage:** slightly improves randomized picking ([752274c](https://github.com/aimed/foxxy/commit/752274c))
+
+
+### Features
+
+* **Discover:** adds release_date.gte ([a5d5c40](https://github.com/aimed/foxxy/commit/a5d5c40))
+
+
+
 <a name="1.8.0"></a>
 # [1.8.0](https://github.com/aimed/foxxy/compare/v1.7.0...v1.8.0) (2017-11-09)
 
