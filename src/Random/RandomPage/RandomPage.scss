@@ -35,6 +35,12 @@
     background: linear-gradient(0deg, #F7F7F7 0%, rgba(247, 247, 247, 0.8) 100%);
 }
 
+.random-page .roll-history {
+    max-width: 80ch;
+    padding: 1em 3em;
+    margin: auto;
+}
+
 .random-page-details__release-year {
     margin: 0.2em 0;
     font-size: 0.8;

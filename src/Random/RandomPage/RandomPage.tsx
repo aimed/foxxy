@@ -9,6 +9,7 @@ import { FilterMenuWithData } from '../FilterMenu/FilterMenu';
 import { RandomPageDetails } from './RandomPageDetails';
 import { RandomPageHeader } from './RandomPageHeader';
 import { RandomPageHero } from './RandomPageHero';
+import { RollHistory } from '../RollHistory/RollHistory';
 import { TMDBAccount } from '../../Api/TMDB/TMDBAccount';
 import { TMDBGenre } from '../../Api/TMDB/TMDBGenre';
 import { connectionStore } from '../../stores/ConnectionStore';
@@ -64,9 +65,17 @@ export class RandomPage extends React.Component<RandomPageProps, {}> {
     @observable
     public showFilters: boolean = false;
 
+    @observable
+    public rollHistory: TMDBMovie[] = [];
+
     public reroll = () => {
-        this.randomMovie = randomInArray(this.props.data.movies);
+        const movie = randomInArray(this.props.data.movies);
+        this.randomMovie = movie;
         randomStore.setRerollCount(randomStore.rerollCount + 1);
+
+        if (movie && !this.rollHistory.find(m => m.id === movie.id)) {
+            this.rollHistory = [...this.rollHistory, movie];
+        }
     }
 
     public componentDidMount() {
@@ -92,6 +101,7 @@ export class RandomPage extends React.Component<RandomPageProps, {}> {
                 {this.showFilters && <FilterMenuWithData />}
                 <RandomPageHero movie={movie} />
                 <RandomPageDetails movie={movie} />
+                <RollHistory history={this.rollHistory} />
             </div>
         );
     }
