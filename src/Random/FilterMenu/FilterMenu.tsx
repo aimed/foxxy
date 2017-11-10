@@ -24,7 +24,7 @@ const allGenres = new TMDBGenre(-1, 'All genres');
 
 export interface FilterMenuState { }
 export interface FilterMenuProps {
-    refresh: () => void;
+    reroll: () => Promise<void>;
     data: {
         account: TMDBAccount | null;
         genres: TMDBGenre[];
@@ -119,7 +119,7 @@ export class FilterMenu extends React.Component<FilterMenuProps, FilterMenuState
         const watchlistContainsGenre = selectedGenre && this.watchlistGenreIds.find(id => id === selectedGenre);
         const genre = selectedGenre ? this.props.data.genres.find(g => g.id === selectedGenre) || null : null;
         filtersStore.genre = this.watchlistOnly && !watchlistContainsGenre ? null : genre;
-        filtersStore.rerollTry = filtersStore.rerollTry + 1;
+        this.props.reroll();
     }
 
     /**
@@ -169,6 +169,10 @@ type QueryVariables = {
     account: TMDBAccount | null;
 };
 
+export interface FilterMenuWithDataProps {
+    reroll: () => Promise<void>;
+}
+
 /**
  * Allows the user to specify which movies to choose from.
  * 
@@ -177,7 +181,7 @@ type QueryVariables = {
  * @extends {React.Component<{}, {}>}
  */
 @observer
-export class FilterMenuWithData extends React.Component<{}, {}> {
+export class FilterMenuWithData extends React.Component<FilterMenuWithDataProps, {}> {
     query = async (variables: QueryVariables) => {
         const { account } = variables;
         const genres = await TMDBGenre.getGenres(connectionStore.connection);
@@ -199,7 +203,7 @@ export class FilterMenuWithData extends React.Component<{}, {}> {
                 loading={() => <div className="spinner-container"><Spinner /></div>}
                 variables={variables}
                 query={this.query}
-                component={FilterMenu}
+                component={(data) => <FilterMenu data={data as any} reroll={this.props.reroll} />}
             />
         );
     }

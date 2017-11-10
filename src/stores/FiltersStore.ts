@@ -7,9 +7,6 @@ export class FiltersStore {
 
     @observable
     public watchlist: boolean = false;
-
-    @observable
-    public rerollTry: number = 0;
 }
 
 export const filtersStore = new FiltersStore();

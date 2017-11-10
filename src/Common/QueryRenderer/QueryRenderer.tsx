@@ -35,7 +35,7 @@ export interface QueryRendererState<T> {
 export interface QueryRendererProps<T, V> {
     query: (variables?: V) => Promise<T>;
     // tslint:disable-next-line:max-line-length
-    component: React.ComponentClass<QueryRendererComponentProps<T>> | React.StatelessComponent<QueryRendererComponentProps<T>>;
+    component: (data: T) => JSX.Element;
     loading?: () => JSX.Element | null;
     variables?: V;
 }
@@ -72,12 +72,6 @@ export class QueryRenderer<T, V> extends React.Component<QueryRendererProps<T, V
             return loading ? loading() : <Spinner />;
         }
 
-        const Component = component;
-        return (
-            <Component 
-                data={data}
-                refresh={this.refresh}
-            />
-        );
+        return component(data);
     }
 }

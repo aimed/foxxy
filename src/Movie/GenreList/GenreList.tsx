@@ -2,8 +2,7 @@ import './GenreList.css';
 
 import * as React from 'react';
 
-import { QueryRenderer, QueryRendererComponentProps } from '../../Common/QueryRenderer/QueryRenderer';
-
+import { QueryRenderer } from '../../Common/QueryRenderer/QueryRenderer';
 import { TMDBGenre } from '../../Api/TMDB/TMDBGenre';
 import { connectionStore } from '../../stores/ConnectionStore';
 import { observer } from 'mobx-react';
@@ -11,7 +10,8 @@ import { observer } from 'mobx-react';
 export type GenreQuery = { [index: number]: TMDBGenre };
 
 export interface GenreListState {}
-export interface GenreListProps extends QueryRendererComponentProps<GenreQuery> {
+export interface GenreListProps {
+    data: GenreQuery;
     genreIds: number[];
 }
 
@@ -56,13 +56,12 @@ export class GenreListWithData extends React.Component<GenreListWithDataProps, G
     render() {
         const language = connectionStore.language;
         const variables: QueryVariables = { language };
-        const R = (p: QueryRendererComponentProps<GenreQuery>) => <GenreList {...p} genreIds={this.props.genreIds} />;
         return (
             <QueryRenderer
                 variables={variables}
                 loading={() => null}
                 query={this.query}
-                component={R}
+                component={data => <GenreList data={data as any} genreIds={this.props.genreIds} />}
             />
         );
     }

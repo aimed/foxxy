@@ -24,7 +24,7 @@ import { observer } from 'mobx-react';
 export interface RandomPageProps {
     history: TMDBMovie[];
     selectedMovie: TMDBMovie | null;
-    reroll?: () => void;
+    reroll: () => Promise<void>;
 }
 
 /**
@@ -49,7 +49,7 @@ export class RandomPage extends React.Component<RandomPageProps, {}> {
         return (
             <div className="random-page">
                 <RandomPageHeader onReroll={reroll} onToggleFilters={() => this.showFilters = !this.showFilters} />
-                {this.showFilters && <FilterMenuWithData />}
+                {this.showFilters && <FilterMenuWithData reroll={reroll} />}
                 <RandomPageHero movie={selectedMovie} />
                 <RandomPageDetails movie={selectedMovie} />
                 <RollHistory history={history} />
@@ -69,15 +69,12 @@ export class RandomPage extends React.Component<RandomPageProps, {}> {
 export class RandomPageWithData extends React.Component<{}, {}> {
     render() {
         const { language } = connectionStore;
-        const { genre, watchlist, rerollTry } = filtersStore;
+        const { genre, watchlist } = filtersStore;
         const settings = { language, genre, watchlist };
 
         return (
-            <RandomMovieProvider
-                rerollTry={rerollTry}
-                settings={settings}
-            >
-                {({ selectedMovie, history }) => <RandomPage selectedMovie={selectedMovie} history={history} />}
+            <RandomMovieProvider settings={settings}>
+                {(props) => <RandomPage {...props} />}
             </RandomMovieProvider>
         );
     }

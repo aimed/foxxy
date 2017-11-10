@@ -15,14 +15,19 @@ type QuerySettings = {
 
 type Settings = QuerySettings & { watchlist: boolean };
 
+export interface RandomMovieComponentProps { 
+    selectedMovie: TMDBMovie | null;
+    history: TMDBMovie[]; 
+    reroll: () => Promise<void>;
+}
+
 export interface RandomMovieProviderState {
     history: TMDBMovie[];
     selectedMovie: TMDBMovie | null;
 }
 export interface RandomMovieProviderProps {
-    rerollTry: number;
     settings: Settings;
-    children: (data: { selectedMovie: TMDBMovie | null, history: TMDBMovie[] }) => JSX.Element;
+    children: (data: RandomMovieComponentProps) => JSX.Element;
 }
 
 export class RandomMovieProvider extends React.Component<RandomMovieProviderProps, RandomMovieProviderState> {
@@ -34,10 +39,8 @@ export class RandomMovieProvider extends React.Component<RandomMovieProviderProp
     pagesForWatchlist = 1;
     pagesForGenre: {[index: number]: number} = {};
 
-    componentWillUpdate(next: RandomMovieProviderProps) {
-        if (next.rerollTry !== this.props.rerollTry) { 
-            this.selectRandomMovie(next.settings);
-        }
+    reroll = () => {
+        return this.selectRandomMovie(this.props.settings);
     }
 
     componentDidMount() {
@@ -100,17 +103,17 @@ export class RandomMovieProvider extends React.Component<RandomMovieProviderProp
         return this.getDiscoverMovies(settings);
     }
 
-    selectRandomMovie = async (settings: Settings) => {
+    selectRandomMovie = (settings: Settings) => new Promise<void>(async (resolve, reject) => {
         const movies = await this.getMovies(settings);
         const selectedMovie = randomInArray(movies);
         const history = selectedMovie && !this.state.history.find(movie => movie.id === selectedMovie.id)
             ? [selectedMovie, ...this.state.history] 
             : this.state.history;
-        this.setState({ selectedMovie, history });
-    }
+        this.setState({ selectedMovie, history }, () => resolve());
+    })
 
     render() {
         const { selectedMovie, history } = this.state;
-        return this.props.children({ selectedMovie, history });
+        return this.props.children({ selectedMovie, history, reroll: this.reroll });
     }
 }
