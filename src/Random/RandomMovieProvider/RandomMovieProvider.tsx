@@ -36,12 +36,12 @@ export class RandomMovieProvider extends React.Component<RandomMovieProviderProp
 
     componentWillUpdate(next: RandomMovieProviderProps) {
         if (next.rerollTry !== this.props.rerollTry) { 
-            this.selectRandomMovie();
+            this.selectRandomMovie(next.settings);
         }
     }
 
     componentDidMount() {
-        this.selectRandomMovie();
+        this.selectRandomMovie(this.props.settings);
     }
 
     getWatchlistMovies = async (settings: QuerySettings, account: TMDBAccount): Promise<TMDBMovie[]> => {
@@ -100,19 +100,13 @@ export class RandomMovieProvider extends React.Component<RandomMovieProviderProp
         return this.getDiscoverMovies(settings);
     }
 
-    selectRandomMovie = async () => {
-        const movies = await this.getMovies(this.props.settings);
+    selectRandomMovie = async (settings: Settings) => {
+        const movies = await this.getMovies(settings);
         const selectedMovie = randomInArray(movies);
         const history = selectedMovie && !this.state.history.find(movie => movie.id === selectedMovie.id)
             ? [selectedMovie, ...this.state.history] 
             : this.state.history;
         this.setState({ selectedMovie, history });
-    }
-
-    areSettingsEqual = (o: Settings, n: Settings): boolean => {
-        return o.genre === n.genre 
-            && o.language === n.language
-            && o.watchlist === n.watchlist;
     }
 
     render() {
