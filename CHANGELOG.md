@@ -1,3 +1,13 @@
+<a name="1.10.1"></a>
+## [1.10.1](https://github.com/aimed/foxxy/compare/v1.10.0...v1.10.1) (2017-11-10)
+
+
+### Bug Fixes
+
+* **Filters:** applying a genre now applies immediately ([8908bed](https://github.com/aimed/foxxy/commit/8908bed)), closes [#10](https://github.com/aimed/foxxy/issues/10)
+
+
+
 <a name="1.10.0"></a>
 # [1.10.0](https://github.com/aimed/foxxy/compare/v1.9.0...v1.10.0) (2017-11-09)
 
