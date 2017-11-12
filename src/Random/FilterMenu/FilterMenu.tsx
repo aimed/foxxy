@@ -20,7 +20,7 @@ import { observer } from 'mobx-react';
 /**
  * A genre that indicates that all genres have been selected.
  */
-const allGenres = new TMDBGenre(-1, 'All genres');
+const allGenres = new TMDBGenre(-1, '-');
 
 export interface FilterMenuState { }
 export interface FilterMenuProps {
@@ -184,7 +184,8 @@ export interface FilterMenuWithDataProps {
 export class FilterMenuWithData extends React.Component<FilterMenuWithDataProps, {}> {
     query = async (variables: QueryVariables) => {
         const { account } = variables;
-        const genres = await TMDBGenre.getGenres(connectionStore.connection);
+        const { language } = connectionStore;
+        const genres = await TMDBGenre.getGenres(connectionStore.connection, language);
         const watchlist = account ? await TMDBAccount.getWatchlist(connectionStore.connection, account) : null;
 
         return {
