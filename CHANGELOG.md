@@ -1,3 +1,13 @@
+<a name="1.10.2"></a>
+## [1.10.2](https://github.com/aimed/foxxy/compare/v1.10.1...v1.10.2) (2017-11-12)
+
+
+### Bug Fixes
+
+* **Routes:** removes filters route ([466cddb](https://github.com/aimed/foxxy/commit/466cddb))
+
+
+
 <a name="1.10.1"></a>
 ## [1.10.1](https://github.com/aimed/foxxy/compare/v1.10.0...v1.10.1) (2017-11-10)
 
