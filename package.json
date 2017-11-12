@@ -1,6 +1,6 @@
 {
   "name": "foxxy",
-  "version": "1.11.0",
+  "version": "1.11.1",
   "private": true,
   "dependencies": {
     "@material/button": "^0.24.0",

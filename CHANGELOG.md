@@ -1,3 +1,13 @@
+<a name="1.11.1"></a>
+## [1.11.1](https://github.com/aimed/foxxy/compare/v1.11.0...v1.11.1) (2017-11-12)
+
+
+### Bug Fixes
+
+* **MovieDetails:** makes things seem less cluttered ([8386d6a](https://github.com/aimed/foxxy/commit/8386d6a))
+
+
+
 <a name="1.11.0"></a>
 # [1.11.0](https://github.com/aimed/foxxy/compare/v1.10.2...v1.11.0) (2017-11-12)
 
