@@ -1,3 +1,5 @@
+@import "_theme";
+
 .spinner-container {
     position: relative;
     min-height: 3em;
@@ -10,18 +12,18 @@
     left: 50%;
     transform: translate(-50%,-50%);
     text-align: center;
-}
 
-.spinner__spinner {
-    background: #FFA404;
-    border-radius: 50%;
-    display: inline-block;
-    width: 3em;
-    height: 3em;
-    animation-name: spinner-bounce;
-    animation-direction: alternate-reverse;
-    animation-iteration-count: infinite;
-    animation-duration: 1s;
+    &__spinner {
+        background: $mdc-theme-secondary;
+        border-radius: 50%;
+        display: inline-block;
+        width: 3em;
+        height: 3em;
+        animation-name: spinner-bounce;
+        animation-direction: alternate-reverse;
+        animation-iteration-count: infinite;
+        animation-duration: 1s;
+    }
 }
 
 @keyframes spinner-bounce {
