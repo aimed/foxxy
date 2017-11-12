@@ -21,8 +21,13 @@ export class MovieDetails extends React.Component<MovieDetailsProps, MovieDetail
                     <MoviePoster movie={movie} />
                 </MovieBackdrop>
                 <section className="movie-details__info">
-                    <h1 className="movie-details__title">{movie.title}</h1>
-                    <div className="movie-details__release-year">{movie.releaseDate.getFullYear()}</div>
+                    <h1 className="movie-details__title">
+                        <span>{movie.title}</span>
+                        <span className="movie-details__release-year">({movie.releaseDate.getFullYear()})</span>
+                    </h1>
+                    <div className="movie-details__rating">
+                        Rating: {movie.voteAverage} ({movie.voteCount})
+                    </div>
                     <div className="movie-details__description">{movie.overview}</div>
                     <div className="movie-details__genres"><GenreListWithData genreIds={movie.genreIds} /></div>
                 </section>

@@ -30,6 +30,7 @@ export class TMDBMovie {
     public title: string;
     public backdropPath: string | null;
     public voteAverage: number;
+    public voteCount: number;
 
     public static fromJSON(data: any): TMDBMovie {
         const movie = new TMDBMovie();
@@ -41,6 +42,7 @@ export class TMDBMovie {
         movie.genreIds = data.genre_ids;
         movie.voteAverage = data.vote_average;
         movie.overview = data.overview;
+        movie.voteCount = data.vote_count;
         return movie;
     }
 
