@@ -20,6 +20,6 @@ export class MoviePoster extends React.Component<MoviePosterProps, {}> {
             return null;
         }
 
-        return (<img src={MoviePoster.getUrl(movie, width)} {...props} />);
+        return (<img src={MoviePoster.getUrl(movie, width)} className="movie-poster" {...props} />);
     }
 }

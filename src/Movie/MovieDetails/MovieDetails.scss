@@ -1,0 +1,23 @@
+.movie-details {
+    .movie-poster {
+        margin: 3em auto;
+        height: 55vh;
+        box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    &__info {
+        max-width: 80ch;
+        margin: auto;
+    }
+
+    &__release-year {
+        margin: 0.2em 0;
+        font-size: 0.8;
+        font-weight: lighter;
+        color: #333333;
+    }
+
+    &__description {
+        white-space: pre-line;
+    }
+}

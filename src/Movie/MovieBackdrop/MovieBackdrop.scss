@@ -1,0 +1,21 @@
+.movie-backdrop {
+    $blur: 10px;
+
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+
+    &__backdrop {
+        position: absolute;
+        top: -$blur*2;
+        bottom: -$blur*2;
+        left: -$blur*2;
+        right: -$blur*2;
+        background-size: cover;
+        filter: blur($blur);
+        z-index: -1;  
+    }
+}

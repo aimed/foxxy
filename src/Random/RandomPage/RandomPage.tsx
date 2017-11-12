@@ -3,16 +3,26 @@ import './RandomPage.css';
 import * as React from 'react';
 
 import { FilterMenuWithData } from '../FilterMenu/FilterMenu';
+import { MovieDetails } from '../../Movie/MovieDetails/MovieDetails';
 import { RandomMovieProvider } from '../RandomMovieProvider/RandomMovieProvider';
-import { RandomPageDetails } from './RandomPageDetails';
 import { RandomPageHeader } from './RandomPageHeader';
-import { RandomPageHero } from './RandomPageHero';
 import { RollHistory } from '../RollHistory/RollHistory';
+import { Spinner } from '../../Common/Spinner/Spinner';
 import { TMDBMovie } from '../../Api/TMDB/TMDBMovie';
 import { connectionStore } from '../../stores/ConnectionStore';
 import { filtersStore } from '../../stores/FiltersStore';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
+
+const tmdbPoweredBy = require('./TMDBPoweredBy.svg');
+
+const RandomPageCredits = () => (
+    <div className="random-page__credits">
+        <a href="//themoviedb.org">
+            <img src={tmdbPoweredBy} alt="Powered by TMDb" height="30px" />
+        </a>
+    </div>
+);
 
 /**
  * 
@@ -41,17 +51,14 @@ export class RandomPage extends React.Component<RandomPageProps, {}> {
 
     public render() {
         const { selectedMovie, history, reroll } = this.props;
-
-        if (!selectedMovie) {
-            return null;
-        }
-
+        
         return (
             <div className="random-page">
                 <RandomPageHeader onReroll={reroll} onToggleFilters={() => this.showFilters = !this.showFilters} />
                 {this.showFilters && <FilterMenuWithData reroll={reroll} />}
-                <RandomPageHero movie={selectedMovie} />
-                <RandomPageDetails movie={selectedMovie} />
+                {selectedMovie && <MovieDetails movie={selectedMovie} />}
+                {selectedMovie && <RandomPageCredits />}
+                {!selectedMovie && <Spinner />}
                 <RollHistory history={history} />
             </div>
         );
