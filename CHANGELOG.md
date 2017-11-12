@@ -1,3 +1,18 @@
+<a name="1.11.0"></a>
+# [1.11.0](https://github.com/aimed/foxxy/compare/v1.10.2...v1.11.0) (2017-11-12)
+
+
+### Bug Fixes
+
+* **Filters:** localized filters ([6255d46](https://github.com/aimed/foxxy/commit/6255d46))
+
+
+### Features
+
+* **MovieDetails:** adds rating data ([a6e055d](https://github.com/aimed/foxxy/commit/a6e055d)), closes [#11](https://github.com/aimed/foxxy/issues/11)
+
+
+
 <a name="1.10.2"></a>
 ## [1.10.2](https://github.com/aimed/foxxy/compare/v1.10.1...v1.10.2) (2017-11-12)
 
