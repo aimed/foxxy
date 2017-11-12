@@ -23,7 +23,7 @@ export class MovieDetails extends React.Component<MovieDetailsProps, MovieDetail
                 <section className="movie-details__info">
                     <h1 className="movie-details__title">
                         <span>{movie.title}</span>
-                        <span className="movie-details__release-year">({movie.releaseDate.getFullYear()})</span>
+                        <span className="movie-details__release-year">{movie.releaseDate.getFullYear()}</span>
                     </h1>
                     <div className="movie-details__rating">
                         Rating: {movie.voteAverage} ({movie.voteCount})
