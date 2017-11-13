@@ -22,5 +22,8 @@
   "scripts": {
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
+  },
+  "resolutions": {
+    "@storybook/ui/react-split-pane": "0.1.70"
   }
 }
