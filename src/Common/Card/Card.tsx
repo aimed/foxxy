@@ -8,6 +8,7 @@ export interface CardState { }
 export interface CardProps {
     title?: string;
     subtitle?: string;
+    titleLarge?: boolean;
     className?: string;
     avatar?: JSX.Element;
 }
@@ -17,6 +18,7 @@ export class Card extends React.Component<CardProps, CardState> {
         const {
             title,
             subtitle,
+            titleLarge,
             avatar,
             children,
             className
@@ -28,12 +30,17 @@ export class Card extends React.Component<CardProps, CardState> {
             avatar && 'mdc-card--avatar'
         ]);
 
+        const titleClasses = classnames([
+            'mdc-card__title',
+            titleLarge && 'mdc-card__title--large'
+        ]);
+
         return (
             <div className={containerClasses}>
                 {(title || subtitle) && 
                     <div className="mdc-card__primary">
                         {avatar && <div className="mdc-card__avatar">{avatar}</div>}
-                        {title && <div className="mdc-card__title">{title}</div>}
+                        {title && <div className={titleClasses}>{title}</div>}
                         {subtitle && <div className="mdc-card__subtitle">{subtitle}</div>}
                     </div>
                 }
