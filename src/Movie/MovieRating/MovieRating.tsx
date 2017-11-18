@@ -17,7 +17,7 @@ export class MovieRating extends React.Component<MovieRatingProps, MovieRatingSt
       <div className="movie-rating">
         <div className="movie-rating__bar">
           <span className="movie-rating__vote-average">{movie.voteAverage}</span>
-          <span className="movie-rating__vote-average-bar" style={{ right: `${(movie.voteAverage * 10)}%` }} />
+          <span className="movie-rating__vote-average-bar" style={{ right: `${((10 - movie.voteAverage) * 10)}%` }} />
         </div>
         <div className="movie-rating__vote-count">{movie.voteCount}</div>
       </div>
