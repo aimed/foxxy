@@ -7,6 +7,7 @@ import { MakeTMDBDate } from '../../Api/TMDB/TMDBDate';
 import { TMDBAccount } from '../../Api/TMDB/TMDBAccount';
 import { TMDBGenre } from '../../Api/TMDB/TMDBGenre';
 import { connectionStore } from '../../stores/ConnectionStore';
+import { filtersStore } from '../../stores/FiltersStore';
 
 type QuerySettings = {
     genre?: TMDBGenre | null;
@@ -26,7 +27,6 @@ export interface RandomMovieProviderState {
     selectedMovie: TMDBMovie | null;
 }
 export interface RandomMovieProviderProps {
-    settings: Settings;
     children: (data: RandomMovieComponentProps) => JSX.Element;
 }
 
@@ -39,12 +39,19 @@ export class RandomMovieProvider extends React.Component<RandomMovieProviderProp
     pagesForWatchlist = 1;
     pagesForGenre: {[index: number]: number} = {};
 
+    get settings() {
+        const { language } = connectionStore;
+        const { genre, watchlist } = filtersStore;
+        const settings = { language, genre, watchlist };
+        return settings;
+    }
+
     reroll = () => {
-        return this.selectRandomMovie(this.props.settings);
+        return this.selectRandomMovie(this.settings);
     }
 
     componentDidMount() {
-        this.selectRandomMovie(this.props.settings);
+        this.selectRandomMovie(this.settings);
     }
 
     getWatchlistMovies = async (settings: QuerySettings, account: TMDBAccount): Promise<TMDBMovie[]> => {

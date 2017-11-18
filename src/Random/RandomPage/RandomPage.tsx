@@ -10,7 +10,6 @@ import { RollHistory } from '../RollHistory/RollHistory';
 import { Spinner } from '../../Common/Spinner/Spinner';
 import { TMDBMovie } from '../../Api/TMDB/TMDBMovie';
 import { connectionStore } from '../../stores/ConnectionStore';
-import { filtersStore } from '../../stores/FiltersStore';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 
@@ -73,15 +72,10 @@ export class RandomPage extends React.Component<RandomPageProps, {}> {
  * @class RandomPageWithData
  * @extends {React.Component<{}, {}>}
  */
-@observer
 export class RandomPageWithData extends React.Component<{}, {}> {
     render() {
-        const { language } = connectionStore;
-        const { genre, watchlist } = filtersStore;
-        const settings = { language, genre, watchlist };
-
         return (
-            <RandomMovieProvider settings={settings}>
+            <RandomMovieProvider>
                 {(props) => <RandomPage {...props} />}
             </RandomMovieProvider>
         );
