@@ -7,7 +7,7 @@ import { TMDBSession } from '../Api/TMDB/TMDBSession';
 const tmdbApiKey = process.env.REACT_APP_TMDB_API_KEY as string;
 
 if (!tmdbApiKey) {
-    throw new Error('No REACT_APP_TMDB_API_KEY set.');
+    console.warn('No REACT_APP_TMDB_API_KEY set.');
 }
 
 export class ConnectionStore {
