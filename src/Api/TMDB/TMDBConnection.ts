@@ -62,7 +62,7 @@ export class TMDBConnection {
      * @memberof TMDBConnection
      */
     public static SuccessResponseParser(data: any): boolean {
-        return data.status_code === 1;
+        return data.status_code === 1 || data.status_code === 13;
     }
 
     /**
@@ -164,10 +164,11 @@ export class TMDBConnection {
         };
         const queryString = querystring.stringify(removeUndefinedValues(queryData));
         const url = `${this._baseUrl}${endpoint}?${queryString}`;
+        const headers = new Headers({ 'Content-Type': 'application/json' });
         const response = await window.fetch(url, { 
             method: 'POST', 
             body: JSON.stringify(data),
-            headers: { 'Content-Type': 'application/json' }
+            headers
         });
         const json = await response.json();
         return responseParser(json);
