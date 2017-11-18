@@ -2,13 +2,13 @@ import './Button.css';
 
 import * as React from 'react';
 
+import { SyntheticEvent } from 'react';
 import { classnames } from '../../utils/classnames';
 
 // Sound provided by http://facebook.design/soundkit
 const soundFile = require('./sound.m4a');
 
-interface ButtonProps extends 
-    React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
+export interface ButtonProps {
         primary?: boolean;
         secondary?: boolean;
         sound?: boolean;
@@ -17,6 +17,12 @@ interface ButtonProps extends
         stroked?: boolean;
         dense?: boolean;
         compact?: boolean;
+        href?: string;
+        linkInNewTab?: boolean;
+        className?: string;
+        style?: React.CSSProperties;
+        onClick?: React.EventHandler<SyntheticEvent<HTMLButtonElement>>;
+        type?: string;
 }
 
 export class Button extends React.Component<ButtonProps, {}> {
@@ -33,7 +39,9 @@ export class Button extends React.Component<ButtonProps, {}> {
             stroked,
             dense,
             compact,
-            sound, 
+            sound,
+            href,
+            linkInNewTab,
             ...props 
         } = this.props;
         
@@ -59,7 +67,16 @@ export class Button extends React.Component<ButtonProps, {}> {
             compact && 'mdc-button--compact'
         ]);
         
-        return (
+        return href 
+        ? (
+            <a
+                className={classNames}
+                href={href}
+                target={linkInNewTab ? '__blank' : undefined}
+                {...props}
+            />
+        ) 
+        : (
             <button 
                 className={classNames}
                 onClick={handleClick} 
