@@ -2,6 +2,24 @@ import { TMDBConnection } from './TMDBConnection';
 import { TMDBDate } from './TMDBDate';
 import { TMDBPage } from './TMDBPage';
 
+export class TMDBAccountState {
+    public id: number;
+    public favorite: boolean;
+    public rated: boolean | { rated: number };
+    public watchlist: boolean;
+
+    public static fromJSON(data: any): TMDBAccountState {
+        return new TMDBAccountState(data);
+    }
+
+    public constructor(data: any) {
+        this.id = data.id;
+        this.favorite = data.favorite;
+        this.rated = data.rated;
+        this.watchlist = data.watchlist;
+    }
+}
+
 type DiscoverSortOptions =
     'popularity.asc' | 'popularity.desc' |
     'release_date.asc' | 'release_date.desc' |
@@ -51,6 +69,9 @@ export class TMDBMovie {
         return con.getRequest(TMDBPage.fromJSON(TMDBMovie.fromJSON), '/discover/movie', { ...query, language });
     }
 
-    private constructor() { }
+    public static accountState(con: TMDBConnection, movie: TMDBMovie): Promise<TMDBAccountState> {
+        return con.getRequest(TMDBAccountState.fromJSON, `/movie/${movie.id}/account_states`);
+    }
 
+    private constructor() { }
 }
