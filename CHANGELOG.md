@@ -1,3 +1,14 @@
+<a name="1.12.1"></a>
+## [1.12.1](https://github.com/aimed/foxxy/compare/v1.12.0...v1.12.1) (2017-11-18)
+
+
+### Bug Fixes
+
+* **MovieCard:** fixes image alignment ([70cdb8b](https://github.com/aimed/foxxy/commit/70cdb8b))
+* **MovieRating:** fixes percentage bar ([e84af7d](https://github.com/aimed/foxxy/commit/e84af7d))
+
+
+
 <a name="1.12.0"></a>
 # [1.12.0](https://github.com/aimed/foxxy/compare/v1.11.1...v1.12.0) (2017-11-18)
 
