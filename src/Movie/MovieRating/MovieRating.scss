@@ -1,0 +1,39 @@
+@import "_theme";
+@import "@material/theme/_variables";
+
+.movie-rating {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    align-content: center;
+    font-size: 0.8em;
+    
+    &__bar {
+        min-width: 6ch;
+        background: rgba($mdc-theme-secondary, 0.5);
+        border-radius: 4px;
+        position: relative;
+        color: lighten($mdc-theme-secondary, 30%);
+        flex: 1;
+    }
+
+    &__vote-average {
+        padding: 0.2em 0.4em;
+    }
+
+    &__vote-average-bar {
+        background: $mdc-theme-secondary;
+        border-radius: 4px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        z-index: -1;
+    }
+
+    &__vote-count {
+        color: $mdc-theme-secondary;
+        margin-left: 1ch;
+    }
+}
