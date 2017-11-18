@@ -1,3 +1,13 @@
+<a name="1.12.2"></a>
+## [1.12.2](https://github.com/aimed/foxxy/compare/v1.12.1...v1.12.2) (2017-11-18)
+
+
+### Bug Fixes
+
+* **Filters:** roroll after applying filters works correctly ([e7ac065](https://github.com/aimed/foxxy/commit/e7ac065)), closes [#13](https://github.com/aimed/foxxy/issues/13)
+
+
+
 <a name="1.12.1"></a>
 ## [1.12.1](https://github.com/aimed/foxxy/compare/v1.12.0...v1.12.1) (2017-11-18)
 
