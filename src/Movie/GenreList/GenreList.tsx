@@ -23,11 +23,10 @@ export class GenreList extends React.Component<GenreListProps, GenreListState> {
         if (!genres || !ids) {
             return null;
         }
+        const genreNames = ids.map(id => genres[id]).filter(g => !!g).map(genre => genre.name);
 
         return (
-            <ul className="genre-list">{ids.map(id => genres[id] &&
-                <li className="genre-list__item" key={id}>{genres[id].name}</li>
-            )}</ul>
+            <span className="genre-list">{genreNames.join(' | ')}</span>
         );
     }
 }
@@ -35,10 +34,11 @@ export class GenreList extends React.Component<GenreListProps, GenreListState> {
 type QueryVariables = {
     language: string
 };
-
+export type GenreMap = QueryVariables;
 export interface GenreListWithDataState { }
 export interface GenreListWithDataProps { 
     genreIds: number[];
+    genres?: GenreQuery;
 }
 
 @observer
@@ -56,6 +56,11 @@ export class GenreListWithData extends React.Component<GenreListWithDataProps, G
     render() {
         const language = connectionStore.language;
         const variables: QueryVariables = { language };
+
+        if (this.props.genres) {
+            return <GenreList data={this.props.genres} genreIds={this.props.genreIds} />;
+        }
+
         return (
             <QueryRenderer
                 variables={variables}
