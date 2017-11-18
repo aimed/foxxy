@@ -1,3 +1,24 @@
+<a name="1.12.0"></a>
+# [1.12.0](https://github.com/aimed/foxxy/compare/v1.11.1...v1.12.0) (2017-11-18)
+
+
+### Bug Fixes
+
+* **GenreList:** changes appearance ([cf45582](https://github.com/aimed/foxxy/commit/cf45582))
+* **Storybook:** removes storybook again ([e71f21e](https://github.com/aimed/foxxy/commit/e71f21e))
+* **TMDBConnection:** properly parses accept response + header fix ([8dc0708](https://github.com/aimed/foxxy/commit/8dc0708))
+
+
+### Features
+
+* **AddWatchlistButton:** adds a button to add/remove from watchlist ([04e8306](https://github.com/aimed/foxxy/commit/04e8306))
+* **Button:** accepts href and turns into an achor element ([5bb7431](https://github.com/aimed/foxxy/commit/5bb7431))
+* **MovieRatings:** adds a movie rating component ([e5258ee](https://github.com/aimed/foxxy/commit/e5258ee))
+* **Storybook:** adds basic storybook support ([91fef17](https://github.com/aimed/foxxy/commit/91fef17))
+* **TMDBMovie:** adds accountstate ([02df116](https://github.com/aimed/foxxy/commit/02df116))
+
+
+
 <a name="1.11.1"></a>
 ## [1.11.1](https://github.com/aimed/foxxy/compare/v1.11.0...v1.11.1) (2017-11-12)
 
