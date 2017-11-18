@@ -1,15 +1,12 @@
+@import "_theme";
+@import "@material/button/_mixins";
+
 .movie-details {
     .movie-poster {
         margin: 3em auto;
         height: 55vh;
         box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.25);
-    }
-
-    &__release-year {
-        margin-left: 1ch;
-        font-size: 0.8em;
-        color: #111;
-        font-weight: lighter;
+        border-radius: 4px;
     }
 
     &__info {
@@ -17,16 +14,35 @@
         margin: auto;
     }
 
-    &__rating {
-        margin: 0.2em 0;
-        font-size: 0.8;
-        font-weight: lighter;
-        color: #333333;
+    &__meta-data {
         display: flex;
-        justify-content: space-between;
+        flex-direction: row;
+        align-items: center;
+        margin-bottom: 0.5em;
+        color: lighten($color: $mdc-theme-primary, $amount: 20%);
+    }
+
+    &__meta-data-item + &__meta-data-item {
+        margin-left: 2ch;
+    }
+
+    &__meta-data-item--movie-rating {
+        flex: 1;
+        max-width: 30ch;
     }
 
     &__description {
         white-space: pre-line;
+    }
+
+    &__actions {
+        margin-top: 0.5em;
+        display: flex;
+        flex-direction: row;
+
+        .mdc-button {
+            @include mdc-button--compact_;
+            @include mdc-button--dense_;
+        }
     }
 }

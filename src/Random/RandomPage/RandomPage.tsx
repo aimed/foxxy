@@ -50,13 +50,14 @@ export class RandomPage extends React.Component<RandomPageProps, {}> {
     public showFilters: boolean = false;
 
     public render() {
+        const account = connectionStore.account;
         const { selectedMovie, history, reroll } = this.props;
         
         return (
             <div className="random-page">
                 <RandomPageHeader onReroll={reroll} onToggleFilters={() => this.showFilters = !this.showFilters} />
                 {this.showFilters && <FilterMenuWithData reroll={reroll} />}
-                {selectedMovie && <MovieDetails movie={selectedMovie} />}
+                {selectedMovie && <MovieDetails movie={selectedMovie} account={account} />}
                 {selectedMovie && <RandomPageCredits />}
                 {!selectedMovie && <Spinner />}
                 <RollHistory history={history} />
