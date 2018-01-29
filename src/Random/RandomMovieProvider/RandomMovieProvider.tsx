@@ -3,7 +3,7 @@ import * as React from 'react';
 import { DiscoverOptions, TMDBMovie } from '../../Api/TMDB/TMDBMovie';
 import { randomInArray, randomInt } from '../../utils/random';
 
-import { MakeTMDBDate } from '../../Api/TMDB/TMDBDate';
+// import { MakeTMDBDate } from '../../Api/TMDB/TMDBDate';
 import { TMDBAccount } from '../../Api/TMDB/TMDBAccount';
 import { TMDBGenre } from '../../Api/TMDB/TMDBGenre';
 import { connectionStore } from '../../stores/ConnectionStore';
@@ -76,12 +76,13 @@ export class RandomMovieProvider extends React.Component<RandomMovieProviderProp
         // If a genre is set we assumere at least 5 pages of that genre to exist.
         // Otherwise we randomly select one of the first 300 pages.
         const page = randomInt(1, genre ? this.pagesForGenre[genre.id] || 5 : 300);
+        
         const twentyYearsAgo = new Date();
         twentyYearsAgo.setFullYear(new Date().getFullYear() - 20);
 
         const discoverOptions: DiscoverOptions = {
-            'primary_release_date.gte': MakeTMDBDate(twentyYearsAgo),
-            'vote_average.gte': 5,
+            // 'primary_release_date.gte': MakeTMDBDate(twentyYearsAgo),
+            'vote_average.gte': 7,
             page
         };
 
