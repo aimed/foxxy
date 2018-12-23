@@ -20,17 +20,12 @@ export class FinalizeAuthPage extends React.Component<FinalizeAuthPageProps, Fin
         const queryString = this.props.location.search.replace('?', '');
         const query = querystring.parse(queryString);
 
-        const approved = query.approved as string;
-        const requestToken = query.request_token as string;
+        const { approved, request_token: requestToken } = query;
 
-        if (approved && approved === 'true') {
-            if (requestToken) {
-                const token = TMDBRequestToken.fromTokenString(requestToken);
-                const session = await TMDBAuthentication.getSessionId(connectionStore.connection, token);
-                connectionStore.session = session;
-                this.props.history.replace('/');
-                return;
-            }
+        if (approved && approved === 'true' && requestToken) {
+            const token = TMDBRequestToken.fromTokenString(requestToken as string);
+            const session = await TMDBAuthentication.getSessionId(connectionStore.connection, token);
+            connectionStore.session = session;
         }
         this.props.history.replace('/');
     }

@@ -27,14 +27,15 @@ export class TMDBAuthentication {
      */
     public static async getSessionId(
         con: TMDBConnection,
-        requestToken: TMDBRequestToken, 
-        setSessionOnConnection: boolean = true): Promise<TMDBSession> {
+        requestToken: TMDBRequestToken,
+        setSessionOnConnection: boolean = true,
+    ): Promise<TMDBSession> {
         const session = await con.getRequest(
-            TMDBSession.fromJSON, 
-            '/authentication/session/new', 
+            TMDBSession.fromJSON,
+            '/authentication/session/new',
             { request_token: requestToken.requestToken }
         );
-        
+
         if (setSessionOnConnection) {
             con.setSession(session);
         }
@@ -58,7 +59,7 @@ export class TMDBAuthentication {
     }
 
     /**
-     * Aquires a request token that, which can be validated and then used to get a user session.
+     * Acquires a request token that, which can be validated and then used to get a user session.
      * 
      * @static
      * @param {TMDBConnection} con 

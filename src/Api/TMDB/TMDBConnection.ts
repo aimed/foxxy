@@ -7,7 +7,7 @@ import { TMDBSession } from './TMDBSession';
  * @param obj The object
  */
 // tslint:disable-next-line:max-line-length
-const removeUndefinedValues = (obj: Object): Object => Object.keys(obj).reduce((p, c) => obj[c] !== null && obj[c] !== undefined ? {[c]: obj[c], ...p} : p, {});
+const removeUndefinedValues = (obj: Object): Object => Object.keys(obj).reduce((p, c) => obj[c] !== null && obj[c] !== undefined ? { [c]: obj[c], ...p } : p, {});
 
 /**
  * Connection used in requests to the tmdb api.
@@ -54,7 +54,7 @@ export class TMDBConnection {
     private _session: TMDBSession | null = null;
 
     /**
-     * Checks if action was successfull.
+     * Checks if action was successful.
      * 
      * @static
      * @param {*} data 
@@ -62,7 +62,7 @@ export class TMDBConnection {
      * @memberof TMDBConnection
      */
     public static SuccessResponseParser(data: any): boolean {
-        return data.status_code === 1 || data.status_code === 13;
+        return data.status_code === 1 || data.status_code === 13;
     }
 
     /**
@@ -116,14 +116,14 @@ export class TMDBConnection {
      * @memberof TMDBConnection
      */
     public async getRequest<T>(
-        responseParser: (response: any) => T, 
-        endpoint: string, 
+        responseParser: (response: any) => T,
+        endpoint: string,
         query: Object = {}
     ): Promise<T> {
-        const queryData = { 
+        const queryData = {
             ...query,
-            api_key: this._apiKey, 
-            session_id: this._session ? this._session.sessionId : undefined 
+            api_key: this._apiKey,
+            session_id: this._session ? this._session.sessionId : undefined
         };
         const queryString = querystring.stringify(removeUndefinedValues(queryData));
         const url = `${this._baseUrl}${endpoint}?${queryString}`;
@@ -152,21 +152,21 @@ export class TMDBConnection {
      * @memberof TMDBConnection
      */
     public async postRequest<T>(
-        responseParser: (response: any) => T, 
+        responseParser: (response: any) => T,
         endpoint: string,
         data: Object = {},
         query: Object = {}
     ): Promise<T> {
-        const queryData = { 
-            ...query, 
-            api_key: this._apiKey, 
-            session_id: this._session ? this._session.sessionId : undefined 
+        const queryData = {
+            ...query,
+            api_key: this._apiKey,
+            session_id: this._session ? this._session.sessionId : undefined
         };
         const queryString = querystring.stringify(removeUndefinedValues(queryData));
         const url = `${this._baseUrl}${endpoint}?${queryString}`;
         const headers = new Headers({ 'Content-Type': 'application/json' });
-        const response = await window.fetch(url, { 
-            method: 'POST', 
+        const response = await window.fetch(url, {
+            method: 'POST',
             body: JSON.stringify(data),
             headers
         });
